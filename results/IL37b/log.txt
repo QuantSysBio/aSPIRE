@@ -1,0 +1,70 @@
+[1] "----------------------------------------------"
+[1] "PARSE INSPIRE RESULTS AND CREATE SKYLINE INPUT"
+[1] "----------------------------------------------"
+[1] "IL37b"
+[1] "spectral angle cut-off: 0.7"
+[1] "q-value angle cut-off: 0.01"
+[1] "retention time deviation:"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+ 0.00002  0.53058  1.04136  1.75426  1.97800 33.48014 
+[1] "-----------------------"
+[1] "WAIT FOR SKYLINE OUTPUT"
+[1] "-----------------------"
+[1] "please copy the following files to your .raw file location:"
+[1] "results/IL37b/IL37b.ssl"
+[1] "results/IL37b/IL37b.fasta"
+[1] "run Skyline and copy the following report to: results/IL37b: "
+[1] "MS1_HPR.csv"
+[1] "2022-04-10 11:49:27 - waiting for Skyline output.."
+[1] "----------------------------------------"
+[1] "RETRIEVE INTENSITIES FOR UNIQUE PEPTIDES"
+[1] "----------------------------------------"
+[1] "728 out of 733 unique peptides could be quantified"
+[1] "----------------------------------------"
+[1] "MAP PEPTIDES AND REMOVE SYNTHESIS ERRORS"
+[1] "----------------------------------------"
+[1] "peptides that were identified at t=0: 20"
+[1] "removing PSP synthesis errors based on MS2 identification..."
+[1] "exact matches: 6"
+[1] "precursors: 6"
+[1] "removing PCP synthesis errors based on MS1 intensity..."
+[1] "14 exact matches are being evaluated for their kinetic"
+[1] "removing PCPs based on kinetic: 4"
+null device 
+          1 
+[1] "--------------------------"
+[1] "POSTPROCESSING OF KINETICS"
+[1] "--------------------------"
+[1] "normalisation..."
+[1] "subtract minimum intensity over all time points and set t=0 to 0"
+null device 
+          1 
+null device 
+          1 
+[1] "2022-04-10 11:52:47 CEST"
+[1] "----------------------------------------"
+[1] "RETRIEVE INTENSITIES FOR UNIQUE PEPTIDES"
+[1] "----------------------------------------"
+[1] "728 out of 733 unique peptides could be quantified"
+[1] "----------------------------------------"
+[1] "MAP PEPTIDES AND REMOVE SYNTHESIS ERRORS"
+[1] "----------------------------------------"
+[1] "peptides that were identified at t=0: 20"
+[1] "removing PSP synthesis errors based on MS2 identification..."
+[1] "exact matches: 6"
+[1] "precursors: 6"
+[1] "removing PCP synthesis errors based on MS1 intensity..."
+[1] "14 exact matches are being evaluated for their kinetic"
+[1] "removing PCPs based on kinetic: 2"
+null device 
+          1 
+[1] "--------------------------"
+[1] "POSTPROCESSING OF KINETICS"
+[1] "--------------------------"
+[1] "normalisation..."
+[1] "subtract minimum intensity over all time points and set t=0 to 0"
+null device 
+          1 
+null device 
+          1 
+[1] "2022-04-10 14:59:16 CEST"
