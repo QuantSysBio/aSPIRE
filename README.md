@@ -45,4 +45,50 @@ You will need two files from *inSPIRE* in order to run *aSPIre*: `finalAssignmen
 Provide the **full name** (including `.raw` suffix) of the `.raw` file for the respective sample. You do NOT have to copy the `.raw` files to your local device. Make sure that all `.raw` files are accessible to a Windows machine with a Skyline installation.
 
 
+## config
+Please have a look on `data/config.yaml`:
+```
+protein_name: IL37b
+spAngle: 0.7
+qVal: 0.01
+skyline_report: MS1_HPR
+```
+Specify the protein_name for which you would like to obtain kinetics in the corresponding line.  
+Cut-offs for spectral angles and q-values should remain unchanged, unless there is a concrete reason to change them.
+
+## execution
+### general remarks on I/O
+Please make sure to follow exactly the instructions given above. As an input, the user must have:
+- inSPIRE final assignments and features in `data/inSPIRE`
+- protein sequences in `data/sequences`
+- Furthermore, you will need MS `.raw` files and access to a Windows machine that has [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) installed.
+
+The output of *aSPIre* is:
+- table of PSMs in `.ssl` format and list of unique identified peptides in `.fasta` format - this is the input for Skyline
+- quantification results that can be found in the `results/protein_name` folder. They entail a list of assigned and quantified peptides (`finalKinetics.csv`) as well as plots showing the kinetics at intermediate and final processing steps (`plots/` subfolder)
+
+### Snakemake and Conda
+*aSPIre* relies on [Conda](https://docs.conda.io/en/latest/) and Snakemake.
+In order to install Conda, click on this [link](https://docs.conda.io/en/latest/miniconda.html) and follow the installation guidelines for your respective operating system.  
+After installing Conda, you need to install Snakemake. The Snakemake installation procedure is described [here](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
+
+Briefly, open the terminal on your computer and paste the following lines sequentially:  
+`conda install -n base -c conda-forge mamba`  
+`conda activate base`  
+`mamba create -c conda-forge -c bioconda -n snakemake snakemake`  
+Additionally, you might need to run `conda update conda`.
+
+Download this repository as a .zip file (click on *Code* at the upper right corner of this repository --> Download ZIP), move the .zip file in the desired directory on your computer and unpack it.
+Open the terminal in this directory and enter: `conda activate snakemake`.
+
+### aSPIre execution
+Make sure that you are in the correct directory of your terminal. After entering `pwd` into the terminal, it should display `./aSPIre` or `./aSPIre-main`.  
+
+The pipeline can be executed by pasting `snakemake --use-conda --cores all -R create_input` into the terminal. The progress of the pipeline execution should appear in your terminal window. Additionally, all statements are saved in a log file (`results/protein_name/log.txt`).
+In case you have installed an older version of Conda/Snakemake and encounter an error when executing the pipeline, try executing
+`snakemake --use-conda --cores all -R create_input --conda-frontend conda`.
+
+
+
+After your jobs finished, enter `conda deactivate` in order to terminate your Conda environment.
 
