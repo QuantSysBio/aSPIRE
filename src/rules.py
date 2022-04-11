@@ -56,7 +56,6 @@ rule map_and_filter:
 		quantities_raw = "results/{protein_name}/QUANTITIES_raw.RData"
 	output:
 		plot_raw = "results/{protein_name}/plots/rawIntensities_noSynErr.pdf",
-		plot_err = "results/{protein_name}/plots/rawIntensities_SynErr.pdf",
 		quantities_filtered = "results/{protein_name}/QUANTITIES_filtered.RData"
 	params:
 		protein_name = config["protein_name"]

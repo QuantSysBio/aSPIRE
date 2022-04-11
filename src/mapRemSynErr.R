@@ -108,9 +108,11 @@ if (length(errors) > 0) {
   }
   
   # plot synthesis errors
-  plotKinetics(DB[DB$pepSeq %in% ErrPeps,],
-               outfile = unlist(snakemake@output[["plot_err"]]),
-               meanTech = F, earlyOnly = F, sortByInt = T)
+  if (length(ErrPeps) > 0) {
+    plotKinetics(DB[DB$pepSeq %in% ErrPeps,],
+                 outfile = paste0("results/",protein_name,"/plots/rawIntensities_SynErr.pdf"),
+                 meanTech = F, earlyOnly = F, sortByInt = T)
+  }
   
   # filter DB
   DB = DB[!DB$pepSeq %in% ErrPeps,]
