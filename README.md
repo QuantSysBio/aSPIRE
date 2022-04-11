@@ -7,7 +7,7 @@ In order to run *aSPIre*, you need access to a Windows machine that has [Skyline
 
 *aSPIre* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using Skyline and constructs a generation kinetic for each identified peptide.
 
-<img style="float: right;" src="rulegraph.png" width="400">
+<img style="float: right;" src="rulegraph.png" width="250">
 
 *aSPIre* parses PSMs assigned by *inSPIRE* and creates the input for MS1 quantification. The user then has to switch to the Windows machine and run Skyline following the instructions in `Skyline_tutorial.pdf`. Afterwards, quantification results are extracted and parsed. Quantified peptides are being mapped to the substrate sequence to determine the product type and synthesis errors are being removed. Finally, MS1 intensities are normalised and plotted and a final list of assigned and quantified peptides is being generated.
 
