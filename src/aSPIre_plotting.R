@@ -57,15 +57,13 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
     if(meanTech) {
       tmp = cnt %>%
         group_by(pepSeq,spliceType,positions,biological_replicate,digestTime) %>%
-        mutate(intensity = replace(intensity, intensity == 0 & digestTime > 0, NA)) %>%
-        summarise(mean_int = mean(intensity, na.rm=T),
-                  sd_int = sd(intensity)) %>%
+        summarise(mean_int = if (all(intensity == 0) & digestTime != 0) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T),
+                  sd_int = if (all(intensity == 0) & digestTime != 0) 0 else sd(intensity[intensity!=0 | digestTime == 0], na.rm=T)) %>%
         arrange(digestTime) %>%
         suppressMessages()
     } else {
       tmp = cnt %>%
         select(pepSeq,spliceType,positions,biological_replicate,digestTime,intensity) %>%
-        mutate(intensity = replace(intensity, intensity == 0 & digestTime > 0, NA)) %>%
         mutate(mean_int = intensity,
                sd_int = 0) %>%
         arrange(digestTime) %>%

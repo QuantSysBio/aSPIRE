@@ -103,11 +103,10 @@ Z = Y %>%
 # ----- aggregate kinetics for replicates -----
 QUANTITIES = Z %>%
   group_by(pepSeq,digestTime,biological_replicate) %>%
-  mutate(intensity = replace(intensity, intensity == 0 & digestTime > 0, NA)) %>%
-  mutate(mean_techRep = mean(intensity, na.rm=T)) %>%
+  mutate(mean_techRep = if (all(intensity == 0) & digestTime != 0) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T)) %>%
   ungroup() %>%
   group_by(pepSeq,digestTime) %>%
-  mutate(mean_bioRep = mean(intensity, na.rm=T))
+  mutate(mean_bioRep = if (all(intensity == 0) & digestTime != 0) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T))
 
 
 ### OUTPUT ###

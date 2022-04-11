@@ -61,8 +61,7 @@ annotations = SKYLINE %>%
 # mean over technical replicates
 Qsum = Q %>%
   group_by(pepSeq,biological_replicate,digestTime) %>%
-  mutate(intensity = replace(intensity, intensity == 0 & digestTime > 0, NA)) %>%
-  mutate(intensity_mean = mean(intensity, na.rm=T))
+  mutate(intensity_mean = if (all(intensity == 0) & digestTime != 0) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T))
 
 # summarise
 kinetics = Qsum %>%
@@ -76,6 +75,15 @@ FINAL = full_join(annotations,kinetics) %>%
   select(substrateID,pepSeq,biological_replicate,digestTimes,intensities,
          substrateSeq,productType,spliceType,positions,noScans,assignedScans,
          spectralAngles,qValues,ionScores,deltaRTs,charges,modifications)
+
+
+# statistics
+tbl = disentangleMultimappers.Type(FINAL)
+tbl$spliceType[tbl$spliceType %in% c(NA,"")] = "PCP"
+
+print(protein_name)
+table(tbl$spliceType)/2 %>%
+  print()
 
 
 ### OUTPUT ####
