@@ -91,11 +91,12 @@ The pipeline can be executed by pasting `snakemake --use-conda --cores all -R cr
 In case you have installed an older version of Conda/Snakemake and encounter an error when executing the pipeline, try executing
 `snakemake --use-conda --cores all -R create_input --conda-frontend conda`.
 
-<img src="filegraph.png" width="800">
-
 1. *aSPIre* parses PSMs assigned by *inSPIRE* and creates the input for MS1 quantification: `protein_name.ssl` and `protein_name.fasta`.
 2. Copy the two tables **into the same folder as the `.raw` files**. Run Skyline following the instructions in `Skyline_tutorial`, export the results using the report `MS1_HPR.csv` and copy it into `results/protein_name`. The pipeline will wait until the required output is in the correct folder.
 3. Wait until the rest of the pipeline finished. You can find the final kinetics in `results/protein_name/`
 
 After your jobs finished, enter `conda deactivate` in order to terminate your Conda environment.
+
+A detailed overview of the files generated at each individual step of *aSPIre* can be found here:
+<img src="filegraph.png" width="800">
 
