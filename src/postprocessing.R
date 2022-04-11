@@ -61,7 +61,7 @@ annotations = SKYLINE %>%
 # mean over technical replicates
 Qsum = Q %>%
   group_by(pepSeq,biological_replicate,digestTime) %>%
-  mutate(intensity_mean = if (all(intensity == 0) & digestTime != 0) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T))
+  mutate(intensity_mean = if (all(intensity == 0) & all(digestTime != 0)) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T))
 
 # summarise
 kinetics = Qsum %>%
