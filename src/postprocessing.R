@@ -78,11 +78,13 @@ FINAL = full_join(annotations,kinetics) %>%
 
 
 # statistics
-tbl = disentangleMultimappers.Type(FINAL)
+tbl = FINAL %>%
+  uniquePeptides() %>%
+  disentangleMultimappers.Type()
 tbl$spliceType[tbl$spliceType %in% c(NA,"")] = "PCP"
 
 print(protein_name)
-table(tbl$spliceType)/2 %>%
+table(tbl$spliceType) %>%
   print()
 
 
