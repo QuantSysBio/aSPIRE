@@ -8,6 +8,7 @@ In order to run *aSPIre*, you need access to a Windows machine that has [Skyline
 *aSPIre* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using Skyline and constructs a generation kinetic for each identified peptide.
 
 
+
 ## sample list
 The user must provide *inSPIRE* final assignments and features. All information must be provided in the sample_list.csv (see an example below). You can edit the sample list using, e.g., MS Excel. In any case, make sure to save it as file with comma-separated values (.csv) and NOT as .xlsx notebook!
 
@@ -88,6 +89,9 @@ The pipeline can be executed by pasting `snakemake --use-conda --cores all -R cr
 In case you have installed an older version of Conda/Snakemake and encounter an error when executing the pipeline, try executing
 `snakemake --use-conda --cores all -R create_input --conda-frontend conda`.
 
+<img src="filegraph.png" width="400">
+1. *aSPIre* parses PSMs assigned by *inSPIRE* and creates the input for MS1 quantification: `protein_name.ssl` and `protein_name.fasta`.
+2. The user has to switch to the Windows machine
 
 
 After your jobs finished, enter `conda deactivate` in order to terminate your Conda environment.
