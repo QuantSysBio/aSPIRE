@@ -7,7 +7,9 @@ In order to run *aSPIre*, you need access to a Windows machine that has [Skyline
 
 *aSPIre* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using Skyline and constructs a generation kinetic for each identified peptide.
 
+<img style="float: right;" src="rulegraph.png" width="250">
 
+*aSPIre* parses PSMs assigned by *inSPIRE* and creates the input for MS1 quantification. The user then has to switch to the Windows machine and run Skyline following the instructions in `Skyline_tutorial.pdf`. Afterwards, quantification results are extracted and parsed. Quantified peptides are being mapped to the substrate sequence to determine the product type and synthesis errors are being removed. Finally, MS1 intensities are normalised and plotted and a final list of assigned and quantified peptides is being generated.
 
 ## sample list
 The user must provide *inSPIRE* final assignments and features. All information must be provided in the sample_list.csv (see an example below). You can edit the sample list using, e.g., MS Excel. In any case, make sure to save it as file with comma-separated values (.csv) and NOT as .xlsx notebook!
@@ -89,10 +91,12 @@ The pipeline can be executed by pasting `snakemake --use-conda --cores all -R cr
 In case you have installed an older version of Conda/Snakemake and encounter an error when executing the pipeline, try executing
 `snakemake --use-conda --cores all -R create_input --conda-frontend conda`.
 
-<img src="filegraph.png" width="400">
 1. *aSPIre* parses PSMs assigned by *inSPIRE* and creates the input for MS1 quantification: `protein_name.ssl` and `protein_name.fasta`.
-2. The user has to switch to the Windows machine
-
+2. Copy the two tables **into the same folder as the `.raw` files**. Run Skyline following the instructions in `Skyline_tutorial`, export the results using the report `MS1_HPR.csv` and copy it into `results/protein_name`. The pipeline will wait until the required output is in the correct folder.
+3. Wait until the rest of the pipeline finished. You can find the final kinetics in `results/protein_name/`
 
 After your jobs finished, enter `conda deactivate` in order to terminate your Conda environment.
+
+A detailed overview of the files generated at each individual step of *aSPIre* can be found here:
+<img src="filegraph.png" width="800">
 
