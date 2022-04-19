@@ -49,17 +49,27 @@ QUANT = quant %>%
   rename(ID = Protein.Name,
          source = File.Name,
          pepSeq = Peptide.Sequence,
-         intensity = Normalized.Area,
+         intensity_MS1 = Total.Area.MS1,
+         background_MS1 = Total.Background.MS1,
          fragment = Fragment.Ion,
          charge = Product.Charge,
          mz = Product.Mz,
          RT = Average.Measured.Retention.Time,
          PTMs = Peptide.Modified.Sequence) %>%
-  select(ID,source,pepSeq,intensity,fragment,charge,mz,RT,PTMs) %>%
+  mutate(intensity_MS1 = as.numeric(intensity_MS1),
+         background_MS1 = as.numeric(background_MS1)) %>%
+  select(ID,source,pepSeq,intensity_MS1,background_MS1,fragment,charge,mz,RT,PTMs) %>%
   mutate(source = gsub(".raw","",source))
 
+
 # replace NA intensities with 0
-QUANT$intensity[QUANT$intensity == "#N/A"] = 0
+QUANT = QUANT %>%
+  mutate(intensity_MS1 = ifelse(is.na(intensity_MS1),0,intensity_MS1),
+         background_MS1 = ifelse(is.na(background_MS1),0,background_MS1)) %>%
+  mutate(intensity = intensity_MS1+background_MS1,
+         frac_background = background_MS1/(intensity_MS1+1e-06),
+         noise = frac_background*(1/(intensity+1e-06)))
+
 
 # join with inSPIRE assignments
 JOINED = left_join(QUANT, quantAssign, by = c("ID")) %>%
@@ -79,16 +89,14 @@ X = sample_list %>%
   right_join(JOINED)
 
 # ----- sum intensities for each peptides
-X$intensity = as.numeric(X$intensity)
-
 # all peptides have one precursor peak
 # summed over all charges
 Y = X %>%
   filter(fragment == "precursor") %>%
-  group_by(pepSeq,source) %>% 
-  mutate(intensity = sum(intensity)) %>%
-  select(source,substrateID,digestTime,biological_replicate,pepSeq,intensity,substrateSeq,ID) %>%
-  unique()
+  group_by(pepSeq,source) %>%
+  mutate(intensity = sum(as.numeric(intensity))) %>%
+  select(source,substrateID,digestTime,biological_replicate,pepSeq,intensity,frac_background,noise,substrateSeq,ID) %>%
+  distinct(source,substrateID,digestTime,biological_replicate,pepSeq,substrateSeq,ID, .keep_all = T)
 
 # Y %>%
 #   group_by(pepSeq) %>%
@@ -97,7 +105,7 @@ Y = X %>%
 
 # summarise IDs
 Z = Y %>%
-  group_by(source,substrateID,digestTime,biological_replicate,pepSeq,intensity,substrateSeq) %>%
+  group_by(source,substrateID,digestTime,biological_replicate,pepSeq,intensity,frac_background,noise,substrateSeq) %>%
   summarise(assignments = paste(ID,collapse = ";"))
 
 # ----- aggregate kinetics for replicates -----

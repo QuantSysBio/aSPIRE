@@ -9,6 +9,7 @@ library(stringr)
 library(RColorBrewer)
 library(wesanderson)
 source("src/invitroSPI_utils.R")
+options(dplyr.summarise.inform = FALSE)
 
 requ = c("pepSeq","spliceType","positions","biological_replicate")
 
