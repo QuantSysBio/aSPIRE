@@ -79,7 +79,9 @@ ASSIGNMENTS = apply(ASSIGNMENTS, 2, as.character) %>%
   as.data.frame()
 ASSIGNMENTS$scanNum = as.numeric(ASSIGNMENTS$scanNum)
 ASSIGNMENTS$charge = as.numeric(ASSIGNMENTS$charge)
-ASSIGNMENTS$deltaRT = as.numeric(ASSIGNMENTS$deltaRT)
+if ("deltaRT" %in% names(ASSIGNMENTS)) {
+  ASSIGNMENTS$deltaRT = as.numeric(ASSIGNMENTS$deltaRT)
+}
 
 
 # ----- 4) create .ssl table -----
