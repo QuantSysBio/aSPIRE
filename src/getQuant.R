@@ -28,6 +28,9 @@ quantAssign = SKYLINE %>%
   select(-accessionGroup, -proteins) %>%
   mutate(digestTime = as.numeric(digestTime))
 
+# in case multiple proteins were quantified tohether
+quant = quant[which(quant$Peptide.Sequence %in% SKYLINE$pepSeq & quant$File.Name %in% sample_list$raw_file), ]
+
 # print some info
 NuniquePep = SKYLINE$pepSeq %>% unique() %>% length()
 NquantPep = quant$Peptide.Sequence %>% unique() %>% length()
