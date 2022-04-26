@@ -82,7 +82,12 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
     if (nCol <= 4) {
       Cols = wes_palette("GrandBudapest1",n=nCol,type = "discrete")
     } else {
-      Cols = brewer.pal(n=nCol, name = "Spectral")
+      Cols = c(wes_palette("GrandBudapest1",n=4,type = "discrete"),
+               wes_palette("GrandBudapest2",n=4,type = "discrete"),
+               wes_palette("Moonrise2",n=4,type = "discrete"),
+               wes_palette("IsleofDogs1",n=4,type = "discrete"),
+               wes_palette("Royal1",n=4,type = "discrete"))
+      Cols = Cols[1:nCol]
     }
     tmp = tmp %>%
       group_by(biological_replicate,digestTime) %>%
