@@ -85,13 +85,10 @@ if ("deltaRT" %in% names(ASSIGNMENTS)) {
 
 
 # ----- 4) create .ssl table -----
-raw = str_split_fixed(AllFeatures$PSMId,"_",Inf)
-
 # add charge and modifications
 SKYLINE = AllFeatures %>%
-  mutate(source = do.call(paste, c(as.data.frame(raw[,c(1:(ncol(raw)-2))]), sep="_")),
-         scanNum = raw[,c(ncol(raw)-1)] %>% as.numeric(),
-         modifications = raw[,ncol(raw)]) %>%
+  mutate(source = str_extract_all(AllFeatures$PSMId, "^[:graph:]+(?=_[:digit:]{3,}_[:alnum:]{5,}$)", simplify = T),
+         scanNum = str_extract_all(AllFeatures$PSMId, "[:digit:]{3,}(?=_[:alnum:]{5,}$)", simplify = T) %>% as.numeric()) %>%
   filter(PSMId %in% paste0(ASSIGNMENTS$source,"_",ASSIGNMENTS$scanNum,"_",ASSIGNMENTS$modifiedSequence)) %>%
   mutate(ID = paste0(source,"_",scanNum)) %>%
   select(source,scanNum,ID,charge,deltaRT) %>%
@@ -106,16 +103,6 @@ input = data.frame(file = paste0(SKYLINE$source,".raw"),
                    score = SKYLINE$qValue,
                    modifications = SKYLINE$modifiedSequence)
 
-
-# # tmp!!!
-# input$sequence = str_replace_all(input$sequence,pattern = coll("+16.0"), replacement = coll("+15.994915"))
-# input$sequence = str_replace_all(input$sequence,pattern = coll("+57.0"), replacement = coll("+57.021464"))
-# input$modifications = str_replace_all(input$modifications,pattern = coll("+16.0"), replacement = coll("+15.994915"))
-# input$modifications = str_replace_all(input$modifications,pattern = coll("+57.0"), replacement = coll("+57.021464"))
-
-# sanity check
-# SKYLINE$pepSeq[!SKYLINE$pepSeq %in% input$sequence]
-# all(SKYLINE$pepSeq == input$sequence)
 
 # ----- 5) create .fasta file -----
 # pass only unique peptides
