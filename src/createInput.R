@@ -44,7 +44,9 @@ finalAssignments = read.csv(paste0("data/inSPIRE/",sample_list$final_assignments
 ### MAIN PART ###
 # ----- 1) parse and filter final assignments -----
 # filtering
-finalAssignments = finalAssignments[finalAssignments$qValue < qValCutoff & finalAssignments$spectralAngle > spAngleCutoff, ]
+finalAssignments = finalAssignments[which(finalAssignments$qValue < qValCutoff & 
+                                      finalAssignments$spectralAngle > spAngleCutoff &
+                                      finalAssignments$deltaRT < rtCutoff), ]
 
 # match with sample list to get info
 sample_list = sample_list %>%
