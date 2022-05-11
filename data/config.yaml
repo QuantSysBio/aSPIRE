@@ -1,4 +1,5 @@
-protein_name: IL37b
+protein_name: OPN_C
 spAngle: 0.7
 qVal: 0.01
+RT: 150
 skyline_report: MS1_HPR
