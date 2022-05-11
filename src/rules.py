@@ -13,7 +13,8 @@ rule create_input:
 	params:
 		protein_name = config["protein_name"],
 		spAngleCutoff = config["spAngle"],
-		qValCutoff = config["qVal"]
+		qValCutoff = config["qVal"],
+		rtCutoff = config["RT"]
 	conda:
 		"dependencies.yaml"
 	script:
