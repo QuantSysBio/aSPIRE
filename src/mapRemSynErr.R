@@ -37,8 +37,8 @@ DB$productType[!is.na(DB$spliceType)] = "PSP"
 
 
 # ----- retrieve peptides that were assigned at t=0 -----
-SynErrors = SKYLINE[SKYLINE$digestTime == 0,]
-errors = SynErrors$pepSeq %>% unique()
+SynErrors = SKYLINE[SKYLINE$digestTime == "CTRL",]
+errors = gsub("I","L",SynErrors$pepSeq) %>% unique()
 
 paste0("peptides that were identified at t=0: ", length(errors)) %>%
   print()
@@ -50,7 +50,7 @@ if (length(errors) > 0) {
   print("removing PSP synthesis errors based on MS2 identification...")
   
   # remove exact matches to synthesis errors
-  pepU = DB$pepSeq[DB$productType == "PSP"] %>% unique()
+  pepU = gsub("I","L",DB$pepSeq[DB$productType == "PSP"]) %>% unique()
   k = which(pepU %in% errors)
   if (length(k) > 0) {
     pepRem = pepU[k]
@@ -73,14 +73,14 @@ if (length(errors) > 0) {
   
   # PCP synthesis errors based on kinetic
   print("removing PCP synthesis errors based on MS1 intensity...")
-  pepC = DB$pepSeq[DB$productType == "PCP"] %>% unique()
+  pepC = gsub("I","L",DB$pepSeq[DB$productType == "PCP"]) %>% unique()
   j = which(pepC %in% errors)
   if (length(j) > 0) {
     pepQM = pepC[j]
     paste0(length(pepQM)," exact matches are being evaluated for their kinetic") %>% print()
     
     QMtable = DB %>%
-      filter(DB$pepSeq %in% pepQM) %>%
+      filter(gsub("I","L",pepSeq) %in% pepQM) %>%
       group_by(pepSeq,biological_replicate,digestTime) %>%
       arrange(digestTime, .by_group = T) %>%
       mutate(technical_replicate = row_number()) %>%
@@ -99,7 +99,7 @@ if (length(errors) > 0) {
       which()
    
     if(length(pcp_rem) > 0) {
-      pepRem = QMtable$pepSeq[pcp_rem] %>% unique()
+      pepRem = gsub("I","L",QMtable$pepSeq[pcp_rem]) %>% unique()
       paste0("removing PCPs based on kinetic: ",length(pepRem)) %>%
         print()
       ErrPeps = c(ErrPeps,pepRem)
@@ -109,7 +109,7 @@ if (length(errors) > 0) {
   
   # plot synthesis errors
   if (length(ErrPeps) > 0) {
-    plotKinetics(DB[DB$pepSeq %in% ErrPeps,],
+    plotKinetics(DB[gsub("I","L",DB$pepSeq) %in% ErrPeps,],
                  outfile = paste0("results/",protein_name,"/plots/rawIntensities_SynErr.pdf"),
                  meanTech = F, earlyOnly = F, sortByInt = T)
   }
