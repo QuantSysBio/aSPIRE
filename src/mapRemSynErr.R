@@ -115,7 +115,7 @@ if (length(errors) > 0) {
   }
   
   # filter DB
-  DB = DB[!DB$pepSeq %in% ErrPeps,]
+  DB = DB[!gsub("I","L",DB$pepSeq) %in% gsub("I","L",ErrPeps),]
   
 } else {
   print("no synthesis errors are being removed")
