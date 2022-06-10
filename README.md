@@ -1,5 +1,7 @@
 # aSPIre
-abundance of spliced peptides identified using rescoring
+abundance of spliced peptides identified using rescoring  
+<img src="aSPIre.png" width="600">
+
 
 ## overview and requirements
 *aSPIre* provides the quantification of spliced and non-spliced peptides that were identified with *inSPIRE*.
