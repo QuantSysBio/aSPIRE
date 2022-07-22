@@ -27,7 +27,7 @@ qValCutoff = snakemake@params[["qValCutoff"]]
 rtCutoff = snakemake@params[["rtCutoff"]]
 
 paste0("spectral angle cut-off: ", spAngleCutoff) %>% print()
-paste0("q-value angle cut-off: ", qValCutoff) %>% print()
+paste0("q-value cut-off: ", qValCutoff) %>% print()
 paste0("retention time cut-off: ", rtCutoff) %>% print()
 
 ### INPUT ###
@@ -74,7 +74,8 @@ DB$substrate = NULL
 
 
 # ----- 3) mapping -----
-DB$productType = str_extract_all(DB$proteins, "^[:alpha:]{3}", simplify = T)
+# DB$productType = str_extract_all(DB$proteins, "^[:alpha:]{3}", simplify = T)
+DB$productType = "PCP"
 DB$spliceType = NA
 DB$positions = NA
 
@@ -86,6 +87,9 @@ ASSIGNMENTS$charge = as.numeric(ASSIGNMENTS$charge)
 if ("deltaRT" %in% names(ASSIGNMENTS)) {
   ASSIGNMENTS$deltaRT = as.numeric(ASSIGNMENTS$deltaRT)
 }
+
+k = which(str_detect(ASSIGNMENTS$positions, "^[:digit:]+_[:digit:]+_[:digit:]+_[:digit:]+"))
+ASSIGNMENTS$productType[k] = "PSP"
 
 
 # ----- 4) create .ssl table -----
