@@ -1,5 +1,5 @@
 # aSPIre
-abundance of spliced peptides identified using rescoring  
+abundance of spliced peptides identified using relative quantification  
 <img src="aSPIre.png" width="600">
 
 
