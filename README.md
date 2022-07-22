@@ -16,12 +16,12 @@ In order to run *aSPIre*, you need access to a Windows machine that has [Skyline
 ## sample list
 The user must provide *inSPIRE* final assignments and features. All information must be provided in the sample_list.csv (see an example below). You can edit the sample list using, e.g., MS Excel. In any case, make sure to save it as file with comma-separated values (.csv) and NOT as .xlsx notebook!
 
-| protein_name | substrateID | substrateSeq | digestTime | biological_replicate | final_assignments | all_features | raw_file |
-| ----- |  ----- |  ----- |  ----- |  ----- |  ----- |  ----- |  ----- |
-IL37b	| IL37b	| IL37b.fasta| 0 | 	G1	| IL37b_finalAssignments.csv	| IL37b_input_all_features.tab	| WSoh_101121_151121_HFGoe_G1_IL37b_0h_R1.raw
-IL37b	| IL37b	| IL37b.fasta	| 4	| G1	| IL37b_finalAssignments.csv	| IL37b_input_all_features.tab	| WSoh_101121_151121_HFGoe_G1_IL37b_4h_R1.raw
-IL37b	| IL37b	| IL37b.fasta	| 0	| G2	| IL37b_finalAssignments.csv	| IL37b_input_all_features.tab	| WSoh_101121_151121_HFGoe_G2_IL37b_0h_R1.raw
-IL37b	| IL37b	| IL37b.fasta	| 2	| G2	| IL37b_finalAssignments.csv	| IL37b_input_all_features.tab	| WSoh_101121_151121_HFGoe_G2_IL37b_2h_R2.raw
+| protein_name | substrateID | substrateSeq | digestTime | biological_replicate | final_assignments | raw_file |
+| ----- |  ----- |  ----- |  ----- |  ----- |  ----- |  ----- |
+IL37b	| IL37b	| IL37b.fasta| 0 | 	G1	| IL37b_finalAssignments.csv | WSoh_101121_151121_HFGoe_G1_IL37b_0h_R1.raw
+IL37b	| IL37b	| IL37b.fasta	| 4	| G1	| IL37b_finalAssignments.csv	| WSoh_101121_151121_HFGoe_G1_IL37b_4h_R1.raw
+IL37b	| IL37b	| IL37b.fasta	| 0	| G2	| IL37b_finalAssignments.csv	| WSoh_101121_151121_HFGoe_G2_IL37b_0h_R1.raw
+IL37b	| IL37b	| IL37b.fasta	| 2	| G2	| IL37b_finalAssignments.csv	| WSoh_101121_151121_HFGoe_G2_IL37b_2h_R2.raw
 
 A few general remarks:
 - Please always provide a full kinetic including the zero hours / no proteasome control measurements.
@@ -43,8 +43,8 @@ Zero-hours time points are treated as control measurements. Please enter *0* as 
 Name of the biological (NOT technical!) replicate. In the final kinetics, the mean over all technical replicates is calculated, whereas biological replicates are displayed separately. Please have a look at the full sample list (`data/sample_list.csv`) for clarification.
 Alternatively, instead of the replicate name, you can also put a number in this column. For readability hower, the actual replicate ID is recommended.
 
-### final_assignments and all_features
-You will need two files from *inSPIRE* in order to run *aSPIre*: `finalAssignments.csv` and `all_features.tab`. They have to be copied into `data/inSPIRE` and re-named according to the example in the sample list. Specify the name of the *inSPIRE* output files in this column. 
+### final_assignments
+You will need only one file from *inSPIRE* in order to run *aSPIre*: `finalAssignments.csv`. They have to be copied into `data/inSPIRE` and re-named according to the example in the sample list. Specify the name of the *inSPIRE* output files in this column. 
 
 ### raw_file
 Provide the **full name** (including `.raw` suffix) of the `.raw` file for the respective sample. You do NOT have to copy the `.raw` files to your local device. Make sure that all `.raw` files are accessible to a Windows machine with a Skyline installation.
@@ -56,15 +56,16 @@ Please have a look on `data/config.yaml`:
 protein_name: IL37b
 spAngle: 0.7
 qVal: 0.01
+RT: 150
 skyline_report: MS1_HPR
 ```
 Specify the protein_name for which you would like to obtain kinetics in the corresponding line.  
-Cut-offs for spectral angles and q-values should remain unchanged, unless there is a concrete reason to change them.
+Cut-offs for spectral angles, q-values and retention time error should remain unchanged, unless there is a concrete reason to change them.
 
 ## execution
 ### general remarks on I/O
 Please make sure to follow exactly the instructions given above. As an input, the user must have:
-- inSPIRE final assignments and features in `data/inSPIRE`
+- inSPIRE final assignments in `data/inSPIRE`
 - protein sequences in `data/sequences`
 - Furthermore, you will need MS `.raw` files and access to a Windows machine that has [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) installed.
 
