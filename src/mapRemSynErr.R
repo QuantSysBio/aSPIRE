@@ -38,8 +38,8 @@ DB$productType[!is.na(DB$spliceType)] = "PSP"
 
 # ----- retrieve peptides that were assigned at t=0 -----
 # remove any whitespaces
-SKYLINE$digestTime = str_extract_all(SKYLINE$digestTime, pattern = "[:digit:]+", simplify = T) %>% as.numeric()
-DB$digestTime = str_extract_all(DB$digestTime, pattern = "[:digit:]+", simplify = T) %>% as.numeric()
+SKYLINE$digestTime = gsub(" ", "", SKYLINE$digestTime, fixed = TRUE) %>% as.numeric()
+DB$digestTime = gsub(" ", "", DB$digestTime, fixed = TRUE) %>% as.numeric()
 
 SynErrors = SKYLINE[SKYLINE$digestTime %in% c(0,"CTRL","0"),]
 errors = gsub("I","L",SynErrors$pepSeq) %>% unique()
