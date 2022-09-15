@@ -37,7 +37,7 @@ DB$productType[!is.na(DB$spliceType)] = "PSP"
 
 
 # ----- retrieve peptides that were assigned at t=0 -----
-SynErrors = SKYLINE[SKYLINE$digestTime == "CTRL",]
+SynErrors = SKYLINE[SKYLINE$digestTime %in% c(0,"CTRL"),]
 errors = gsub("I","L",SynErrors$pepSeq) %>% unique()
 
 paste0("peptides that were identified at t=0: ", length(errors)) %>%
