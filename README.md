@@ -4,8 +4,8 @@ abundance of spliced peptides identified using relative quantification
 
 
 ## overview and requirements
-*aSPIre* provides the quantification of spliced and non-spliced peptides that were identified with *inSPIRE*.
-In order to run *aSPIre*, you need access to a Windows machine that has [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) installed. **Skyline** is a freely available tool for MS analysis.
+*aSPIre* provides the quantification of spliced and non-spliced peptides that were identified with *inSPIRE*. It does not do any heavy computing, thus can be run on a **Linux, Mac or Windows laptop** on a single CPU. (**Note**, that software testing was done only on macOS).
+In order to run *aSPIre*, you furthermore need access to a Windows machine that has [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) installed. **Skyline** is a freely available tool for MS analysis.
 
 *aSPIre* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using Skyline and constructs a generation kinetic for each identified peptide.
 
