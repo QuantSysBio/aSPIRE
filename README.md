@@ -11,7 +11,7 @@ In order to run *aSPIre*, you furthermore need access to a Windows machine that 
 
 <img style="float: right;" src="rulegraph.png" width="250">
 
-**Note that *aSPIre* can be run on any device. Some intermediate steps have to be executed on a Windows machine using Skyline. During these steps, the pipeline is waiting until the Skyline output from the Windows machine is available.**  
+**Note that *aSPIre* can be run on any device. Some intermediate steps have to be executed on a Windows machine using Skyline. During these steps, the pipeline is waiting until the Skyline output from the Windows machine is available on the device where you are running *aSPIre*.**  
 *aSPIre* parses PSMs assigned by [*inSPIRE*](https://github.com/QuantSysBio/inSPIRE) or [*invitroSPI*](https://github.com/QuantSysBio/invitroSPI) and creates the input for MS1 quantification. The user then has to switch to the Windows machine and run Skyline following the instructions in `Skyline_tutorial.pdf`. Afterwards, quantification results are extracted and parsed. Quantified peptides are being mapped to the substrate sequence to determine the product type and synthesis errors are being removed. Finally, MS1 intensities are normalised and plotted and a final list of assigned and quantified peptides is being generated.
 
 ## sample list
