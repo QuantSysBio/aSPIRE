@@ -11,10 +11,11 @@ In order to run *aSPIre*, you furthermore need access to a Windows machine that 
 
 <img style="float: right;" src="rulegraph.png" width="250">
 
-*aSPIre* parses PSMs assigned by *inSPIRE* and creates the input for MS1 quantification. The user then has to switch to the Windows machine and run Skyline following the instructions in `Skyline_tutorial.pdf`. Afterwards, quantification results are extracted and parsed. Quantified peptides are being mapped to the substrate sequence to determine the product type and synthesis errors are being removed. Finally, MS1 intensities are normalised and plotted and a final list of assigned and quantified peptides is being generated.
+**Note that *aSPIre* can be run on any device. Some intermediate steps have to be executed on a Windows machine using Skyline. During these steps, the pipeline is waiting until the Skyline output from the Windows machine is available.**  
+*aSPIre* parses PSMs assigned by [*inSPIRE*](https://github.com/QuantSysBio/inSPIRE) or [*invitroSPI*](https://github.com/QuantSysBio/invitroSPI) and creates the input for MS1 quantification. The user then has to switch to the Windows machine and run Skyline following the instructions in `Skyline_tutorial.pdf`. Afterwards, quantification results are extracted and parsed. Quantified peptides are being mapped to the substrate sequence to determine the product type and synthesis errors are being removed. Finally, MS1 intensities are normalised and plotted and a final list of assigned and quantified peptides is being generated.
 
 ## sample list
-The user must provide *inSPIRE* final assignments and features. All information must be provided in the sample_list.csv (see an example below). You can edit the sample list using, e.g., MS Excel. In any case, make sure to save it as file with comma-separated values (.csv) and NOT as .xlsx notebook!
+The user must provide *inSPIRE* final assignments and features. All information must be provided in the sample_list.csv (see an example below). You can edit the sample list using, e.g., MS Excel. In any case, make sure to save it as file with comma-separated values (.csv) and NOT as .xlsx notebook! **To check that the sample list is in the correct format, you can open it using a text editor and verify that the columns are separated by commas (and NOT semicolons)**.
 
 | protein_name | substrateID | substrateSeq | digestTime | biological_replicate | final_assignments | raw_file |
 | ----- |  ----- |  ----- |  ----- |  ----- |  ----- |  ----- |
@@ -67,14 +68,14 @@ Cut-offs for spectral angles, q-values and retention time error should remain un
 Please make sure to follow exactly the instructions given above. As an input, the user must have:
 - inSPIRE final assignments in `data/inSPIRE`
 - protein sequences in `data/sequences`
-- Furthermore, you will need MS `.raw` files and access to a Windows machine that has [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) installed.
+- Furthermore, you will need MS `.raw` files and access to a Windows machine that has [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) installed. **You do not need to copy the .raw files to your laptop where you are executing *aSPIre*!**
 
 The output of *aSPIre* is:
 - table of PSMs in `.ssl` format and list of unique identified peptides in `.fasta` format - this is the input for Skyline
 - quantification results that can be found in the `results/protein_name` folder. They entail a list of assigned and quantified peptides (`finalKinetics.csv`) as well as plots showing the kinetics at intermediate and final processing steps (`plots/` subfolder)
 
 ### Snakemake and Conda
-*aSPIre* relies on [Conda](https://docs.conda.io/en/latest/) and Snakemake.
+The following instructions need to be **executed oncy once to set up *aSPIre***. Once this is done, you can directly progress to the execution for any further runs. *aSPIre* relies on [Conda](https://docs.conda.io/en/latest/) and Snakemake.
 In order to install Conda, click on this [link](https://docs.conda.io/en/latest/miniconda.html) and follow the installation guidelines for your respective operating system.  
 After installing Conda, you need to install Snakemake. The Snakemake installation procedure is described [here](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
 
@@ -82,7 +83,7 @@ Briefly, open the terminal on your computer and paste the following lines sequen
 `conda install -n base -c conda-forge mamba`  
 `conda activate base`  
 `mamba create -c conda-forge -c bioconda -n snakemake snakemake`  
-Additionally, you might need to run `conda update conda`.
+Additionally, you might need to run `conda update conda`. We repeatedly faced some issues around Conda installations. Please refer to [this tutorial](https://pad.gwdg.de/s/7C3rWC3w2#) for troubleshooting your installation.
 
 Download this repository as a .zip file (click on *Code* at the upper right corner of this repository --> Download ZIP), move the .zip file in the desired directory on your computer and unpack it.
 Open the terminal in this directory and enter: `conda activate snakemake`.
