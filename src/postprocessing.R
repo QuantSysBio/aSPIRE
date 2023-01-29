@@ -44,6 +44,25 @@ if (all(Q$digestTime > 0)) {
   Q = rbind(Q, Qmock) %>%
     as.data.frame() %>%
     arrange(digestTime, pepSeq)
+  
+} else if (length(unique(Q$biological_replicate[Q$digestTime == 0])) < length(unique(Q$biological_replicate))) {
+ 
+  missing0 = Q %>%
+    group_by(biological_replicate) %>%
+    summarise(missing0 = all(digestTime > 0))
+  missing0 = missing0$biological_replicate[missing0$missing0]
+  
+  Qmock = Q %>%
+    ungroup() %>%
+    filter(biological_replicate %in% missing0) %>%
+    distinct(pepSeq, biological_replicate, technical_replicate, .keep_all = T) %>%
+    mutate(digestTime = 0,
+           intensity = 0)
+  
+  Q = rbind(Q, Qmock) %>%
+    as.data.frame() %>%
+    arrange(digestTime, pepSeq)
+  
 }
 
 
