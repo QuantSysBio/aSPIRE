@@ -56,7 +56,6 @@ rule map_and_filter:
 		assignments_bin = "results/{protein_name}/ASSIGNMENTS.RData",
 		quantities_raw = "results/{protein_name}/QUANTITIES_raw.RData"
 	output:
-		plot_raw = "results/{protein_name}/plots/rawIntensities_noSynErr.pdf",
 		quantities_filtered = "results/{protein_name}/QUANTITIES_filtered.RData"
 	params:
 		protein_name = config["protein_name"]
@@ -71,9 +70,9 @@ rule postprocessing:
 		quantities_filtered = "results/{protein_name}/QUANTITIES_filtered.RData",
 		assignments_bin = "results/{protein_name}/ASSIGNMENTS.RData"
 	output:
-		plot_norm = "results/{protein_name}/plots/normIntensities_allReps.pdf",
-		plot_kinetics = "results/{protein_name}/plots/finalKinetics.pdf",
-		final_kinetics = "results/{protein_name}/finalKinetics.csv"
+		plot_raw = "results/{protein_name}/plots/{protein_name}_rawIntensities.pdf",
+		plot_kinetics = "results/{protein_name}/plots/{protein_name}_finalKinetics.pdf",
+		final_kinetics = "results/{protein_name}/{protein_name}_finalKinetics.csv"
 	params:
 		protein_name = config["protein_name"]
 	conda:

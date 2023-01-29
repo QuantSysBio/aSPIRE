@@ -36,9 +36,6 @@ sample_list = sample_list[sample_list$protein_name == protein_name, ]
 
 finalAssignments = read.csv(paste0("data/inSPIRE/",sample_list$final_assignments[1]),
                             stringsAsFactors = F)
-# AllFeatures = read.table(paste0("data/inSPIRE/",sample_list$all_features[1]),
-#                          stringsAsFactors = F, header = T)
-
 
 
 ### MAIN PART ###
@@ -113,7 +110,6 @@ input = data.frame(file = paste0(SKYLINE$source,".raw"),
                    sequence = SKYLINE$modifiedSequence,  # !!!
                    score = SKYLINE$qValue,
                    modifications = SKYLINE$modifiedSequence)
-
 
 # ----- 5) create .fasta file -----
 # pass only unique peptides

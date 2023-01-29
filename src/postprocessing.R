@@ -24,25 +24,73 @@ load(snakemake@input[["assignments_bin"]])
 ### MAIN PART ###
 # ----- filter and plot final kinetics -----
 print("normalisation...")
-print("subtract minimum intensity over all time points and set t=0 to 0")
 
 Q = QUANTfiltered %>%
   tidyr::separate_rows(int_pasted, times_pasted, sep = ";") %>%
   rename(intensity = int_pasted,
          digestTime = times_pasted) %>%
+  mutate(digestTime = as.numeric(digestTime),
+         intensity = as.numeric(intensity)) %>%
   as.data.frame()
 
+# if there are no 0 hrs assignments
+if (all(Q$digestTime > 0)) {
+  Qmock = Q %>%
+    ungroup() %>%
+    distinct(pepSeq, biological_replicate, technical_replicate, .keep_all = T) %>%
+    mutate(digestTime = 0,
+           intensity = 0)
+  
+  Q = rbind(Q, Qmock) %>%
+    as.data.frame() %>%
+    arrange(digestTime, pepSeq)
+}
+
+
+# --- aggregate intensities from I/L redundant peptides
 Q = Q %>%
+  mutate(pepSeq_IL = gsub("I","L",pepSeq)) %>%
+  group_by(pepSeq_IL, biological_replicate, technical_replicate, digestTime) %>%
+  summarise(intensity = sum(intensity)) %>%
+  left_join(Q %>% mutate(pepSeq_IL = gsub("I","L",pepSeq)) %>% select(-intensity)) %>%
+  ungroup() %>%
+  select(-pepSeq_IL) %>%
+  mutate(technical_replicate = ifelse(technical_replicate == 3, 1, technical_replicate),  # hard-coded for 2 technical replicates
+         technical_replicate = ifelse(technical_replicate == 4, 2, technical_replicate))
+
+# --- outlier filtering
+# determine background from 0 hrs
+t0 = Q %>%
+  filter(digestTime == 0) %>%
   group_by(pepSeq, biological_replicate, technical_replicate) %>%
-  mutate(intensity = as.numeric(intensity)) %>%
-  mutate(intensity = intensity-min(intensity))
-Q$intensity[Q$digestTime == 0] = 0
+  summarise(max0 = max(intensity)) %>%
+  ungroup()
 
-plotKinetics(Q, unlist(snakemake@output[["plot_norm"]]),
+# determine global noise level in digestion from distribution of 0 hrs values
+noiseLevel = quantile(t0$max0, 0.5)
+
+# set all values NA that are smaller than the background or the global noise level
+Qnorm = Q %>%
+  left_join(t0 %>% mutate(max0 = ifelse(max0 < noiseLevel, noiseLevel, max0))) %>%
+  mutate(intensity = ifelse(digestTime > 0, intensity - max0, 0),
+         intensity = ifelse(digestTime > 0 & intensity <= 0, NA, intensity))
+
+remDataP = is.na(Qnorm$intensity) %>% which() %>% length()
+paste0("remove ",remDataP, " out of ", nrow(Qnorm)," data points (", round(100*remDataP/nrow(Qnorm),2) ,"%) due to noise")
+
+# data normalisation
+# Q = Q %>%
+#   group_by(pepSeq, biological_replicate, technical_replicate) %>%
+#   mutate(intensity = intensity-intensity[digestTime == 0]) %>%
+#   rowwise() %>%
+#   mutate(intensity = ifelse(intensity < 0, 0, intensity)) %>%
+#   ungroup()
+
+# plotting
+plotKinetics(Q, unlist(snakemake@output[["plot_raw"]]),
              meanTech = F, earlyOnly = F, sortByInt = T)
-plotKinetics(Q, unlist(snakemake@output[["plot_kinetics"]]),
+plotKinetics(Qnorm, unlist(snakemake@output[["plot_kinetics"]]),
              meanTech = T, earlyOnly = T, sortByInt = T)
-
 
 # ----- generate output tables -----
 # annotation
@@ -59,9 +107,9 @@ annotations = SKYLINE %>%
 
 # kinetics
 # mean over technical replicates
-Qsum = Q %>%
+Qsum = Qnorm %>%
   group_by(pepSeq,biological_replicate,digestTime) %>%
-  mutate(intensity_mean = if (all(intensity == 0) & all(digestTime != 0)) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T))
+  mutate(intensity_mean = mean(intensity, na.rm = T))
 
 # summarise
 kinetics = Qsum %>%
@@ -85,6 +133,9 @@ tbl = FINAL %>%
   na.omit()
 
 print(protein_name)
+
+table(tbl$productType) %>%
+  print()
 table(tbl$spliceType) %>%
   print()
 

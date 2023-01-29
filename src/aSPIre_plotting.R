@@ -33,6 +33,7 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
       as.data.frame()
   }
   
+  
   # ----- sort by intensity -----
   if (sortByInt) {
     x = Qtable %>%
@@ -49,7 +50,7 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
   
   # ----- iterate peptides -----
   for (i in 1:length(pepU)) {
-   
+    
     cnt = Qtable[Qtable$pepSeq == pepU[i],] 
     cnt$intensity = as.numeric(cnt$intensity)
     cnt$digestTime = as.numeric(cnt$digestTime)
@@ -58,16 +59,20 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
     if(meanTech) {
       tmp = cnt %>%
         group_by(pepSeq,spliceType,positions,biological_replicate,digestTime) %>%
-        summarise(mean_int = if (all(intensity == 0) & all(digestTime != 0)) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T),
-                  sd_int = if (all(intensity == 0) & all(digestTime != 0)) 0 else sd(intensity[intensity!=0 | digestTime == 0], na.rm=T)) %>%
+        summarise(mean_int = mean(intensity, na.rm=T),
+                  sd_int = sd(intensity, na.rm=T)) %>%
         arrange(digestTime) %>%
+        group_by(biological_replicate, digestTime) %>%
+        mutate(technical_replicate = row_number()) %>%
+        ungroup() %>%
         suppressMessages()
     } else {
       tmp = cnt %>%
-        select(pepSeq,spliceType,positions,biological_replicate,digestTime,intensity) %>%
+        select(pepSeq,spliceType,positions,biological_replicate, technical_replicate, digestTime,intensity) %>%
         mutate(mean_int = intensity,
                sd_int = 0) %>%
         arrange(digestTime) %>%
+        ungroup() %>%
         suppressMessages()
     }
     k = which(!is.na(tmp$mean_int))
@@ -77,8 +82,7 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
     }
     
     # ----- add colours -----
-    nCol = tmp %>% group_by(biological_replicate,digestTime) %>% summarise(n = n())
-    nCol = nCol$n[1]*length(unique(tmp$biological_replicate))
+    nCol = length(unique(tmp$technical_replicate))*length(unique(tmp$biological_replicate))
     if (nCol <= 4) {
       Cols = wes_palette("GrandBudapest1",n=nCol,type = "discrete")
     } else {
@@ -90,9 +94,8 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
       Cols = Cols[1:nCol]
     }
     tmp = tmp %>%
-      group_by(biological_replicate,digestTime) %>%
-      mutate(technical_replicate = row_number(),
-             combo = paste0(biological_replicate,"-",technical_replicate))
+      group_by(biological_replicate, digestTime) %>%
+      mutate(combo = paste0(biological_replicate,"-",technical_replicate))
     tmp = data.frame(combo = unique(tmp$combo), col = as.character(Cols)) %>%
       right_join(tmp) %>%
       suppressMessages()
@@ -107,16 +110,17 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
     
     # ----- add lines -----
     for (gr in unique(tmp$combo)) {
-      lines(x=tmp$digestTime[tmp$combo == gr],
-            y=tmp$mean_int[tmp$combo == gr],
-            col = tmp$col[tmp$combo==gr][1], lwd=1.5)
+      k = which(!is.na(tmp$mean_int[tmp$combo == gr]))
+      lines(x=tmp$digestTime[tmp$combo == gr][k],
+            y=tmp$mean_int[tmp$combo == gr][k],
+            col = tmp$col[tmp$combo==gr][k][1], lwd=1.5)
       
       # add standard dev
       if(meanTech) {
-        arrows(tmp$digestTime[tmp$combo == gr], tmp$mean_int[tmp$combo == gr]-tmp$sd_int[tmp$combo == gr],
-               tmp$digestTime[tmp$combo == gr], tmp$mean_int[tmp$combo == gr]+tmp$sd_int[tmp$combo == gr],
+        arrows(tmp$digestTime[tmp$combo == gr][k], tmp$mean_int[tmp$combo == gr][k]-tmp$sd_int[tmp$combo == gr][k],
+               tmp$digestTime[tmp$combo == gr][k], tmp$mean_int[tmp$combo == gr][k]+tmp$sd_int[tmp$combo == gr][k],
                length=0.03, angle=90, code=3,
-               lty = "solid", lwd = 1, col = tmp$col[tmp$combo==gr][1]) %>%
+               lty = "solid", lwd = 1, col = tmp$col[tmp$combo==gr][k][1]) %>%
           suppressWarnings()
       }
       
@@ -129,7 +133,7 @@ plotKinetics = function(Qtable, outfile, meanTech=F, earlyOnly=T, sortByInt=T) {
            legend = txt, lty = rep("solid",length(txt)), col = Cols,bty="n")
     
   }
-
+  
   dev.off()
   
 }

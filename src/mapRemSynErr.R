@@ -115,7 +115,7 @@ if (length(errors) > 0) {
   if (length(ErrPeps) > 0) {
     plotKinetics(DB[gsub("I","L",DB$pepSeq) %in% ErrPeps,],
                  outfile = paste0("results/",protein_name,"/plots/rawIntensities_SynErr.pdf"),
-                 meanTech = F, earlyOnly = F, sortByInt = T)
+                 meanTech = T, earlyOnly = F, sortByInt = T)
   }
   
   # filter DB
@@ -136,11 +136,6 @@ QUANTfiltered = DB %>%
   summarise(int_pasted = paste(intensity, collapse = ";"),
             times_pasted = paste(digestTime, collapse = ";"))
 
-
-# plot raw intensities
-plotKinetics(QUANTfiltered,
-             outfile = unlist(snakemake@output[["plot_raw"]]),
-             meanTech = F, earlyOnly = F, sortByInt = T)
 
 ### OUTPUT ###
 save(QUANTfiltered, file = unlist(snakemake@output[["quantities_filtered"]]))

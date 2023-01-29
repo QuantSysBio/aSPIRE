@@ -18,6 +18,6 @@ include: snakefiles + "rules.py"
 
 rule all:
     input:
-        plot_norm = "results/{protein_name}/plots/normIntensities_allReps.pdf".format(protein_name=config['protein_name']),
-        plot_kinetics = "results/{protein_name}/plots/finalKinetics.pdf".format(protein_name=config['protein_name']),
-        final_kinetics = "results/{protein_name}/finalKinetics.csv".format(protein_name=config['protein_name'])
+        plot_raw = "results/{protein_name}/plots/{protein_name}_rawIntensities.pdf".format(protein_name=config['protein_name']),
+        plot_kinetics = "results/{protein_name}/plots/{protein_name}_finalKinetics.pdf".format(protein_name=config['protein_name']),
+        final_kinetics = "results/{protein_name}/{protein_name}_finalKinetics.csv".format(protein_name=config['protein_name'])
