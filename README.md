@@ -1,4 +1,4 @@
-# aSPIre
+# aSPIRE
 abundance of spliced peptides identified using relative quantification  
 <img src="aSPIre.png" width="600">
 
