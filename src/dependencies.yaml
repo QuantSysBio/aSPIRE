@@ -15,4 +15,5 @@ dependencies:
   - r-data.table=1.14.8
   - r-r.utils=2.12.2
   - r-magick=2.7.4
+  - r-pdftools=3.3.3
   

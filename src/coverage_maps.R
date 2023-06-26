@@ -6,14 +6,14 @@
 
 library(dplyr)
 library(stringr)
-library(ggplot2)
 library(magick)
+library(pdftools)
 source("src/invitroSPI_utils.R")
 source("src/aSPIre_plotting.R")
-theme_set(theme_classic())
 
 Mx = 10
-
+protein_name = snakemake@params[["protein_name"]]
+sink(file = paste0("results/",protein_name,"/log.txt"), append = T, split = T)
 
 print("-------------------------------------")
 print("PLOTTING OF COVERAGE AND RESIDUE MAPS")
@@ -365,6 +365,7 @@ print("Converting into GIF....")
 pdf_doc <- magick::image_read_pdf(paste0("results/",protein_name,"/",protein_name,"_residuemap.pdf"), density = 200)
 gif_file_name_and_path <- unlist(snakemake@output[["residuemap"]])
 pdf_doc %>% magick::image_animate(fps = 5) %>% magick::image_write(path = gif_file_name_and_path)
+
 print("DONE!")
 
 
