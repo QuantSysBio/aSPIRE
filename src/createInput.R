@@ -52,7 +52,8 @@ sample_list = sample_list %>%
 sample_list$source = gsub(".raw","",sample_list$source)
 
 finalAssignments = finalAssignments %>% rename(scanNum = scan, pepSeq = peptide, ionScore = engineScore)
-DB = left_join(finalAssignments, sample_list)
+DB = left_join(finalAssignments, sample_list) %>%
+  filter(!is.na(substrateSeq))
 
 
 # ----- 2) add substrate sequences -----
