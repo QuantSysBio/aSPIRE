@@ -21,6 +21,6 @@ rule all:
         plot_raw = "results/{protein_name}/plots/{protein_name}_rawIntensities.pdf".format(protein_name=config['protein_name']),
         plot_kinetics = "results/{protein_name}/plots/{protein_name}_finalKinetics.pdf".format(protein_name=config['protein_name']),
         final_kinetics = "results/{protein_name}/{protein_name}_finalKinetics.csv".format(protein_name=config['protein_name']),
-        chromatogram = "results/{protein_name}/{protein_name}_TICs.done".format(protein_name=config['protein_name']),
-        coveragevalues = "results/{protein_name}/{protein_name}_coveragevalues.RData".format(protein_name=config['protein_name']),
-        residuemap = "results/{protein_name}/{protein_name}_residuemap.gif".format(protein_name=config['protein_name'])
+        chromatogram = "results/{protein_name}/plots/{protein_name}_TICs.done".format(protein_name=config['protein_name']),
+        coveragevalues = "results/{protein_name}/plots/{protein_name}_coveragevalues.RData".format(protein_name=config['protein_name']),
+        residuemap = "results/{protein_name}/plots/{protein_name}_residuemap.gif".format(protein_name=config['protein_name'])

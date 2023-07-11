@@ -1,7 +1,7 @@
 ### aSPIRE ###
 # description:  get peptide coverage map over time
-# input:        TICs exported from Skyline, sample list
-# output:       plotting of TICs
+# input:        final Kinetics
+# output:       plotting of coverage maps
 # author:       HPR
 
 library(dplyr)
@@ -99,12 +99,13 @@ getCoverage = function(protein_name) {
     mutate(substrateID = protein_name)
   
   # normalise it
-  Dorig$pcps = (Dorig$pcps-min(Dorig$pcps)) / (max(Dorig$pcps) - min(Dorig$pcps))
-  Dorig$psps = (Dorig$psps-min(Dorig$psps)) / (max(Dorig$psps) - min(Dorig$psps))
+  DD = Dorig
+  DD$pcps = (DD$pcps-min(DD$pcps)) / (max(DD$pcps) - min(DD$pcps))
+  DD$psps = (DD$psps-min(DD$psps)) / (max(DD$psps) - min(DD$psps))
   
   D = lapply(rev(tp), function(t){
     
-    d = Dorig[Dorig$digestTime == t,]
+    d = DD[DD$digestTime == t,]
     sp = smooth.spline(d$psps)
     nsp = smooth.spline(d$pcps)
     
@@ -221,12 +222,12 @@ getCoverage = function(protein_name) {
        y = c(0, seq(yshift0, yshift-yshift0, yshift0)),
        labels = rev(tp))
   
-  
-  save(D, file = unlist(snakemake@output[["coveragevalues"]])) 
+  coveragevals = list(normalised = D, raw = Dorig)
+  save(coveragevals, file = unlist(snakemake@output[["coveragevalues"]])) 
 }
 
 
-pdf(paste0("results/",protein_name,"/",protein_name,"_coverage.pdf"), height = 8, width = 12)
+pdf(paste0("results/",protein_name,"/plots/",protein_name,"_coverage.pdf"), height = 8, width = 12)
 getCoverage(protein_name)
 dev.off()
 print("Coverage maps successfully plotted!....")
@@ -239,6 +240,8 @@ getResidueMap = function(protein_name) {
   
   # --- get coverage
   load(unlist(snakemake@output[["coveragevalues"]]))
+  D = coveragevals$normalised
+  
   tp = names(D) %>% as.numeric()
   jsel = if(any(tp == 4)) which(tp == 4) else which.min(abs(4-tp))[1]
   
@@ -262,7 +265,7 @@ getResidueMap = function(protein_name) {
     as.data.frame()
   
   
-  pdf(paste0("results/",protein_name,"/",protein_name,"_residuemap.pdf"), height = 4, width = 6)
+  pdf(paste0("results/",protein_name,"/plots/",protein_name,"_residuemap.pdf"), height = 4, width = 6)
   for (i in 1:nchar(S)) {
     
     k_pcp = which(pos$V1 <= i & pos$V2 >= i & cntDB$spliceType == "PCP")
@@ -293,7 +296,7 @@ getResidueMap = function(protein_name) {
     lines(x = 1:L, y = selNSP, lwd = 2, col = plottingCols["PCP"])
     lines(x = 1:L, y = -1*selSP, lwd = 2, col = plottingCols["PSP"])
     
-    if (nrow(pcp) > 0 & nrow(psp) > 0) {
+    if (nrow(pcp) > 0 | nrow(psp) > 0) {
       
       # PCPs
       if (nrow(pcp) > 0) {
@@ -362,7 +365,7 @@ print("Residue maps successfully plotted!....")
 
 print("Converting into GIF....")
 # convert into gif
-pdf_doc <- magick::image_read_pdf(paste0("results/",protein_name,"/",protein_name,"_residuemap.pdf"), density = 200)
+pdf_doc <- magick::image_read_pdf(paste0("results/",protein_name,"/plots/",protein_name,"_residuemap.pdf"), density = 200)
 gif_file_name_and_path <- unlist(snakemake@output[["residuemap"]])
 pdf_doc %>% magick::image_animate(fps = 5) %>% magick::image_write(path = gif_file_name_and_path)
 

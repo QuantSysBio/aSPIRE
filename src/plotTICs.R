@@ -38,39 +38,42 @@ TIC = TIC %>%
 
 
 # ----- whole kinetics for each replicate -----
-pdf(paste0("results/",protein_name,"/",protein_name,"_TICs.pdf"), height = 2*5, width = 2*6)
+pdf(paste0("results/",protein_name,"/plots/",protein_name,"_TICs.pdf"), height = 2*5, width = 2*6)
 par(mfrow = c(2,2))
 
 for (b in unique(TIC$bioRep)) {
   for (r in unique(TIC$techRep)) {
     
     cnt = TIC[TIC$bioRep == b & TIC$techRep == r, ]
-    co = rainbow(n=nrow(cnt), alpha = .3)
     
-    dt = lapply(1:nrow(cnt), function(i){
-      data.frame(tp = strsplit(cnt$Times[i], split = ",") %>% unlist() %>% as.numeric(),
-                 int = strsplit(cnt$Intensities[i], split = ",") %>% unlist() %>% as.numeric())
-    })
-    
-    # sort
-    names(dt) = cnt$tp
-    dt = dt[na.omit(match(ord, names(dt)))]
-    
-    lim = sapply(dt,function(x){max(x$int)}) %>% max() %>% ceiling()
-    
-    # plot
-    plot(x = dt[[1]]$tp, y = dt[[1]]$int,
-         main = paste0(protein_name, ": rep ", b, " - inj ", r),
-         ylim = c(0,lim),
-         type = "l", lwd = 1, xlab = "RT [min]", ylab = "intensity", col = co[1])
-    if (length(dt) > 1) {
-      for (j in 2:length(dt)) {
-        lines(dt[[j]]$tp, dt[[j]]$int, col = co[j])
+    if(nrow(cnt) > 0) {
+      co = rainbow(n=nrow(cnt), alpha = .3)
+      
+      dt = lapply(1:nrow(cnt), function(i){
+        data.frame(tp = strsplit(cnt$Times[i], split = ",") %>% unlist() %>% as.numeric(),
+                   int = strsplit(cnt$Intensities[i], split = ",") %>% unlist() %>% as.numeric())
+      })
+      
+      # sort
+      names(dt) = cnt$tp
+      dt = dt[na.omit(match(ord, names(dt)))]
+      
+      lim = sapply(dt,function(x){max(x$int)}) %>% max() %>% ceiling()
+      
+      # plot
+      plot(x = dt[[1]]$tp, y = dt[[1]]$int,
+           main = paste0(protein_name, ": rep ", b, " - inj ", r),
+           ylim = c(0,lim),
+           type = "l", lwd = 1, xlab = "RT [min]", ylab = "intensity", col = co[1])
+      if (length(dt) > 1) {
+        for (j in 2:length(dt)) {
+          lines(dt[[j]]$tp, dt[[j]]$int, col = co[j])
+        }
       }
+      
+      legend("topleft", legend = names(dt),
+             col = co, lty = "solid", horiz = T, bty = "n", cex = .8)
     }
-    
-    legend("topleft", legend = names(dt),
-           col = co, lty = "solid", horiz = T, bty = "n", cex = .8)
     
     
   }

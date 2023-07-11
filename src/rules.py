@@ -89,7 +89,7 @@ rule plot_tics:
 		sample_list = "data/sample_list.csv",
 		tics = "results/{protein_name}/{protein_name}_TICs.tsv"
 	output:
-		chromatogram = "results/{protein_name}/{protein_name}_TICs.done"
+		chromatogram = "results/{protein_name}/plots/{protein_name}_TICs.done"
 	params:
 		protein_name = config["protein_name"]
 	conda:
@@ -102,8 +102,8 @@ rule plot_coverage:
 	input:
 		final_kinetics = "results/{protein_name}/{protein_name}_finalKinetics.csv"
 	output:
-		coveragevalues = "results/{protein_name}/{protein_name}_coveragevalues.RData",
-		residuemap = "results/{protein_name}/{protein_name}_residuemap.gif"
+		coveragevalues = "results/{protein_name}/plots/{protein_name}_coveragevalues.RData",
+		residuemap = "results/{protein_name}/plots/{protein_name}_residuemap.gif"
 	params:
 		protein_name = config["protein_name"]
 	conda:

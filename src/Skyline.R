@@ -49,9 +49,9 @@ if (automatedSkyline) {
   cpw4 = file.copy(from = fasta, to = raw_file_loc, overwrite = T)
   
   # library building command
-  lib_command = paste0("docker run -i --rm -v ",raw_file_loc,":/data ",
-                       "chambm/pwiz-skyline-i-agree-to-the-vendor-licenses ",
-                       "wine blibbuild ", basename(ssl)," ", blib)
+  # lib_command = paste0("docker run -i --rm -v ",raw_file_loc,":/data ",
+  #                      "chambm/pwiz-skyline-i-agree-to-the-vendor-licenses ",
+  #                      "wine blibbuild ", basename(ssl)," ", blib)
   
   # Skyline command
   skyline_command = paste0("docker run -i --rm -v ",raw_file_loc,":/data ",
@@ -61,8 +61,8 @@ if (automatedSkyline) {
                            "--out=",protein_name,"_",Date,".sky ",
                            
                            # build library and import results
-                           "--add-library-path=",blib," ",
-                           "--add-library-name=",gsub(".blib","",blib)," ",
+                           # "--add-library-path=",blib," ",
+                           # "--add-library-name=",gsub(".blib","",blib)," ",
                            # "--import-all-files=./ ",
                            # "--import-filename-pattern=raw ",
                            "--import-search-file=",basename(ssl)," ",
@@ -104,8 +104,8 @@ if (automatedSkyline) {
   # ----- run Skyline in Docker
   print("running Skyline (this can take up to an hour) ....")
   if (cpw1 & cpw2 & cpw3 & cpw4) {
-    print(lib_command)
-    system(lib_command)
+    # print(lib_command)
+    # system(lib_command)
     
     print(skyline_command)
     
