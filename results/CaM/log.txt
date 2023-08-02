@@ -1,0 +1,106 @@
+[1] "----------------------------------------------"
+[1] "PARSE INSPIRE RESULTS AND CREATE SKYLINE INPUT"
+[1] "----------------------------------------------"
+[1] "CaM"
+[1] "spectral angle cut-off: 0"
+[1] "q-value cut-off: 0.01"
+[1] "retention time cut-off: 1.5e+08"
+[1] "retention time deviation:"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ 0.000177  0.597804  1.313539  1.726322  2.348507 10.526317 
+[1] "-----------"
+[1] "RUN SKYLINE"
+[1] "-----------"
+[1] "RUNNING AUTOMATED SKYLINE IN DOCKER"
+[1] "running Skyline (this can take up to an hour) ...."
+[1] "docker run -i --rm -v /data/Hanna/PROTEINS/RAW/CaM/:/data chambm/pwiz-skyline-i-agree-to-the-vendor-licenses wine SkylineCmd --timestamp --dir=/data --in=_Skyline-template.sky --save --out=CaM_20230710.sky --import-search-file=CaM.ssl --import-search-add-mods --import-search-include-ambiguous --import-fasta=CaM.fasta --keep-empty-proteins --import-threads=64 --refine-auto-select-peptides --refine-auto-select-transitions --refine-auto-select-precursors --refine-min-peptides=0 --refine-min-transitions=0 --refine-min-peak-found-ratio=0 --refine-max-peak-found-ratio=1 --refine-minimum-detections=0 --refine-min-dotp=0 --refine-min-idotp=0 --tran-precursor-ion-charges=1,2,3,4,5,6 --tran-product-ion-types=y,p --full-scan-rt-filter-tolerance=0.5 --chromatogram-file=CaM_TICs.tsv --chromatogram-tics --report-add=_Skyline-report.skyr --report-name=MS1_HPR --report-invariant --report-file=MS1_HPR.csv > results/CaM/skyline_log.txt"
+[1] "Finished Skyline!"
+[1] "Success! All data are in place to continue"
+[1] "----------------------------------------"
+[1] "RETRIEVE INTENSITIES FOR UNIQUE PEPTIDES"
+[1] "----------------------------------------"
+[1] "356 out of 371 unique peptides could be quantified"
+[1] "----------------------------------------"
+[1] "MAP PEPTIDES AND REMOVE SYNTHESIS ERRORS"
+[1] "----------------------------------------"
+[1] "peptides that were identified at t=0: 0"
+[1] "no synthesis errors are being removed"
+[1] "--------------------------"
+[1] "POSTPROCESSING OF KINETICS"
+[1] "--------------------------"
+[1] "normalisation..."
+[1] "remove 36 out of 7120 data points (0.51%) due to noise"
+null device 
+          1 
+null device 
+          1 
+[1] "UNIQUE PEPTIDES"
+[1] "CaM"
+
+PCP PSP 
+346  10 
+
+              cis               PCP            revCis             trans 
+                1               346                 5                 2 
+type_multi-mapper 
+                2 
+[1] "2023-07-10 08:56:12 CEST"
+[1] "-------------------------------------"
+[1] "PLOTTING OF COVERAGE AND RESIDUE MAPS"
+[1] "-------------------------------------"
+[1] "UNIQUE PEPTIDES"
+[1] "REPLACE ALL ISOLEUCINS BY LEUCINS"
+[1] "CaM"
+null device 
+          1 
+[1] "Coverage maps successfully plotted!...."
+[1] "CaM"
+null device 
+          1 
+[1] "Residue maps successfully plotted!...."
+[1] "Converting into GIF...."
+[1] "DONE!"
+[1] "----------------------------------------"
+[1] "RETRIEVE INTENSITIES FOR UNIQUE PEPTIDES"
+[1] "----------------------------------------"
+[1] "356 out of 371 unique peptides could be quantified"
+[1] "----------------------------------------"
+[1] "MAP PEPTIDES AND REMOVE SYNTHESIS ERRORS"
+[1] "----------------------------------------"
+[1] "peptides that were identified at t=0: 0"
+[1] "no synthesis errors are being removed"
+[1] "--------------------------"
+[1] "POSTPROCESSING OF KINETICS"
+[1] "--------------------------"
+[1] "normalisation..."
+[1] "remove 36 out of 7120 data points (0.51%) due to noise"
+null device 
+          1 
+null device 
+          1 
+[1] "UNIQUE PEPTIDES"
+[1] "CaM"
+
+PCP PSP 
+346  10 
+
+              cis               PCP            revCis             trans 
+                1               346                 5                 2 
+type_multi-mapper 
+                2 
+[1] "2023-08-02 11:38:19 CEST"
+[1] "-------------------------------------"
+[1] "PLOTTING OF COVERAGE AND RESIDUE MAPS"
+[1] "-------------------------------------"
+[1] "UNIQUE PEPTIDES"
+[1] "REPLACE ALL ISOLEUCINS BY LEUCINS"
+[1] "CaM"
+null device 
+          1 
+[1] "Coverage maps successfully plotted!...."
+[1] "CaM"
+null device 
+          1 
+[1] "Residue maps successfully plotted!...."
+[1] "Converting into GIF...."
+[1] "DONE!"

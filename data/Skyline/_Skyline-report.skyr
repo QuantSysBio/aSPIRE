@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<views>
+  <view name="MS1_HPR" rowsource="pwiz.Skyline.Model.Databinding.Entities.Transition" sublist="Results!*" uimode="proteomic">
+    <column name="Precursor.Peptide.Protein.Name" />
+    <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.Replicate.Name" />
+    <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.FileName" />
+    <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.AcquiredTime" />
+    <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.InstrumentSerialNumber" />
+    <column name="Precursor.Peptide.Sequence" />
+    <column name="Precursor.Peptide.ModifiedSequence" />
+    <column name="Precursor.Peptide.MissedCleavages" />
+    <column name="Precursor.Peptide.SequenceLength" />
+    <column name="Precursor.Peptide.AverageMeasuredRetentionTime" />
+    <column name="Results!*.Value.PrecursorResult.PeptideResult.Quantification.NormalizedArea" />
+    <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.TicArea" />
+    <column name="ResultSummary" />
+    <column name="ProductCharge" />
+    <column name="ProductNeutralMass" />
+    <column name="ProductMz" />
+    <column name="FragmentIon" />
+    <column name="Results!*.Value.Area" />
+    <column name="Results!*.Value.Background" />
+    <column name="Precursor.ResultSummary" />
+    <column name="Precursor.TransitionCount" />
+    <column name="Results!*.Value.PrecursorResult.BestRetentionTime" />
+    <column name="Precursor.Mz" />
+    <column name="Precursor.Charge" />
+    <column name="Results!*.Value.PrecursorResult.TotalAreaMs1" />
+    <column name="Results!*.Value.PrecursorResult.TotalBackgroundMs1" />
+    <column name="Results!*.Value.PrecursorResult.TotalArea" />
+    <column name="Results!*.Value.PrecursorResult.TotalBackground" />
+  </view>
+</views>

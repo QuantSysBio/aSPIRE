@@ -1,0 +1,7 @@
+protein_name: AnnexinA1
+spAngle: 0.0
+qVal: 0.01
+RT: 1.5e+08
+raw_file_loc: /data/Hanna/PROTEINS/RAW/AnnexinA1/
+automatedSkyline: yes
+skyline_report: MS1_HPR
