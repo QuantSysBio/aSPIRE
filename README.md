@@ -15,7 +15,7 @@ The main steps of *aSPIRE* are:
 - results visualisation (peptide generation kinetics, total ion chromatograms, peptide coverage maps, residue maps etc)
 
 ## Installation of dependencies
-The following instructions need to be **executed oncy once to set up *aSPIRE***. Once this is done, you can directly progress to the execution for any further runs.
+The following instructions need to be **executed oncy once to set up *aSPIRE***. Once this is done, you can directly progress to the [execution](#Execution) for any further runs.
 
 ### Snakemake and Conda
 *aSPIRE* relies on [Conda](https://docs.conda.io/en/latest/) and Snakemake.
@@ -75,23 +75,29 @@ Open `data/config.yaml` using a text editor such as VS code or Sublime. Fill in 
     automatedSkyline: yes
     skyline_report: MS1_HPR
 
-- `protein_name`:
-- `spAngle`: Do not change unless you have a reason to do so.
-- `qVal`: False discovery rate for which PSMs are filtered. Set to 1% per default.
-- `RT`: Do not change unless you have a reason to do so.
-- `raw_file_loc`: Absolute path pointing towards a folder that contains all raw files.
-- `automatedSkyline`:
-- `skyline_report`: do not change
+| flag | explanation |
+| ----- | ----- |
+| `protein_name` | Name of the kinetic that should be analysed by *aSPIRE*. Must correspond to the `protein_name` column in the sample list (see [below](#sample-list)). |
+| `spAngle` | Lower limit of spectral angles. Postfiltering of *inSPIRE* assignments is not recommended - do not change unless you have a reason to do so. |
+| `qVal` | False discovery rate for which PSMs are filtered. Set to 1% per default. |
+| `RT` | Upper limit of retention time error. Postfiltering of *inSPIRE* assignments is not recommended - do not change unless you have a reason to do so. |
+| `raw_file_loc` | Absolute path pointing towards a folder that contains all raw files. This folder can also be located on a remote file server, however, the device from which you are running *aSPIRE* must have access to this folder. |
+| `automatedSkyline` | Logical indicated whether Skyline should be executed manually or automatically via command line (see [above](#Skyline)). Enter `yes` or `no`. |
+| `skyline_report` | Do not change. |
+
+Special attention should be paid to `protein_name`, `raw_file_loc` and `automatedSkyline` flags. All other flags can be left to their default.
+Make sure to save the config file after modifying it!
 
 ### sample list
 Open `data/sample_list.csv` with MS Excel/Numbers etc or a text editor. Fill in the information as in the example:
 
 | protein_name | substrateID | substrateSeq | digestTime | biological_replicate | final_assignments | raw_file |
 | ----- |  ----- |  ----- |  ----- |  ----- |  ----- |  ----- |
-CaM	| CaM	| CaM.fasta| 0 | 	G1	| IL37b_finalAssignments.csv | WSoh_101121_151121_HFGoe_G1_IL37b_0h_R1.raw
-CaM	| CaM	| CaM.fasta	| 4	| G1	| IL37b_finalAssignments.csv	| WSoh_101121_151121_HFGoe_G1_IL37b_4h_R1.raw
-CaM	| CaM	| CaM.fasta	| 0	| G2	| IL37b_finalAssignments.csv	| WSoh_101121_151121_HFGoe_G2_IL37b_0h_R1.raw
-CaM	| CaM	| CaM.fasta	| 2	| G2	| IL37b_finalAssignments.csv	| WSoh_101121_151121_HFGoe_G2_IL37b_2h_R2.raw
+CaM	| CaM	| CaM.fasta| 0 | 	b1	| CaM_psms.csv | HRoetschke_291222_040123_Fu_CaM_b1R1_0h.raw
+CaM	| CaM	| CaM.fasta	| 1	| b1	| CaM_psms.csv	| HRoetschke_291222_040123_Fu_CaM_b1R1_1h.raw
+CaM	| CaM	| CaM.fasta	| 2	| b1	| CaM_psms.csv	| HRoetschke_291222_040123_Fu_CaM_b1R1_2h.raw
+CaM	| CaM	| CaM.fasta	| 4	| b1	| CaM_psms.csv	| HRoetschke_291222_040123_Fu_CaM_b1R1_4h.raw
+CaM	| CaM	| CaM.fasta	| 4	| b2	| CaM_psms.csv	| HRoetschke_291222_040123_Fu_CaM_b2R1_4h.raw
 
 A few general remarks:
 - Please always provide a full kinetic including the zero hours / no proteasome control measurements.
@@ -99,11 +105,20 @@ A few general remarks:
 - Do not put any white spaces, umlauts or empty rows in the sample list. Also, every column has to be filled, even if there are duplicated entries (*e.g.*, substrateID).
 
 **Explanation of sample list columns:**
-- `protein_name`
+| column | explanation |
+| ----- | ----- |
+| `protein_name` | The name of the protein/polypeptide to which the respective list entry corresponds. Choose a short and comprehensive name and avoid spaces or special characters. |
+| `substrateID` | ID under which the given protein will appear in the final output. Can be identical to `protein_name` (recommended), but this does not have to be the case. |
+| `substrateSeq` | Save the substrate sequence in a single-entry `.fasta` file and deploy it in `data/sequences/`. Specify the name of the `.fasta` file in the `substrateSeq` column of the sample list. |
+| `digestTime` | Time point after which the digestion was stopped. **Please provide the time in hours!** For instance, if the digestion time is 15 min, enter 0.25. **Do not put any units in this column!** Zero-hours time points are treated as control measurements. Please enter *0* as time point for all control measurements. |
+| `biological_replicate` | Name of the biological (NOT technical!) replicate. In the final kinetics, the mean over all technical replicates is calculated, whereas biological replicates are displayed separately. Please have a look at the full sample list (`data/sample_list.csv`) for clarification. Alternatively, instead of the replicate name, you can also put a number in this column. For readability hower, the actual replicate ID is recommended. |
+| `final_assignments` | PSM list from *inSPIRE* (**NOT peptide list!**). They have to be copied into `data/inSPIRE` and re-named according to the example in the sample list. Specify the name of the *inSPIRE* output files in this column. |
+| `raw_file` | Provide the **full name** (including `.raw` suffix) of the `.raw` file for the respective sample. You do NOT have to copy the `.raw` files to your device. However, the device from which you are running *aSPIRE* must have access to this folder. |
 
 After filling in all information, save the sample list in .csv format. **Important!** In case you are creating/editing the `sample_list.csv` file in Microsoft Excel, make sure to save it as actual comma-separated file. *I.e.*, Save as --> Comma-separated Values (.csv) To check that the sample list is in the correct format, you can open it using a text editor and verify that the columns are separated by commas (and NOT semicolons).
 
 ## Execution
+
 
 ## output
 
