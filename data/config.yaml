@@ -1,7 +1,0 @@
-protein_name: SARS-CoV2-Omi-NP
-spAngle: 0
-qVal: 0.01
-RT: 150000000
-raw_file_loc: /data/Hanna/PROTEINS/RAW/SARS-CoV2-Omi-NP/
-automatedSkyline: yes
-skyline_report: MS1_HPR
