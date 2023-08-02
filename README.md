@@ -3,8 +3,8 @@ aSPIRE is a tool for the estimation of peptide abundances using label-free quant
 <img src="aSPIRE_white.png" width="400">
 
 ## Overview and requirements
-*aSPIRE* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using [Skyline](https://skyline.ms/project/home/begin.view) and constructs a generation kinetic for each identified peptide.
-It does not do any heavy computing, thus can be run on a **Linux, Mac or Windows laptop** on a single CPU. (**Note**, that software testing was done only on macOS/Linux).
+*aSPIRE* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) and constructs a generation kinetic for each identified peptide.
+It does not do any heavy computing, thus can be run on a **Linux, Mac or Windows laptop** on a single CPU. However (**Note**, that software testing was done only on macOS/Linux).
 
 The main steps of *aSPIRE* are:
 - parsing of *inSPIRE* assignments (PSMs), peptide mapping and creation of input files for Skyline
@@ -36,16 +36,48 @@ Open the terminal in this directory and enter:
     conda activate aSPIRE
 
 ### Skyline
-For the extraction of peptide abundances, *aSPIRE* relies on [Skyline](https://skyline.ms/project/home/begin.view). There are two ways to execute *aSPIRE* and Skyline.
+For the extraction of peptide abundances, *aSPIRE* relies on [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view). There are two ways to execute *aSPIRE* and Skyline.
 1. If you have limited experience with command line, a Windows machine available and only a few samples to process we recommend **manual execution**.
 2. For high-throughput data processing with *aSPIRE* we recommend executing Skyline via **command line** in automated fashion.
 
+Choose one of these methods according to your requirements and follow the respective instructions below.
+
 #### Manual execution
+Install Skyline on your Windows machine following the [vendor's instructions](https://skyline.ms/project/home/software/Skyline/begin.view). In the config file, remember to change the flag
+
+    automatedSkyline: no
+
+to `no` (see [config file](#config-file) section for detailed instructions). Make sure to follow the instructions in `Skyline_tutorial.pdf` during execution.
 
 #### Command line execution
+The command line options requires the installation of [Docker](https://www.docker.com/). Skyline is containerised in [this](https://hub.docker.com/r/chambm/pwiz-skyline-i-agree-to-the-vendor-licenses) Docker image. Pull the image and make sure that it works:
 
+    docker pull chambm/pwiz-skyline-i-agree-to-the-vendor-licenses
+    docker run -it --rm chambm/pwiz-skyline-i-agree-to-the-vendor-licenses wine SkylineCmd --help
+
+You should see information for all possible flags printed. In the config file, remember to change the flag
+
+    automatedSkyline: yes
+
+to `yes` (see [config file](#config-file) section for detailed instructions).
 
 ## User input
+All input information should be provided in the `data/` folder. Please have a look at the files `config.yaml` and `sample_list.csv` in that folder.
+
+### config file
+Open `data/config.yaml` using a text editor such as VS code or Sublime. Fill in the information as in the example:
+
+    protein_name: CaM
+    spAngle: 0
+    qVal: 0.01
+    RT: 150000000
+    raw_file_loc: /absolute_path/to/folder_with_all_raw_files/
+    automatedSkyline: yes
+    skyline_report: MS1_HPR
+
+- `protein_name` 
+
+### sample list
 
 
 ## Execution
