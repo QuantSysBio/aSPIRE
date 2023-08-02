@@ -147,4 +147,3 @@ in order to terminate your Conda environment.
 All results are stored in the `results/protein_name/` folder.
 
 ## Output
-
