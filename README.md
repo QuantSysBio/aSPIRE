@@ -2,6 +2,8 @@
 aSPIRE is a tool for the estimation of peptide abundances using label-free quantification mass spectrometry
 <img src="aSPIRE_white.png" width="400">
 
+
+
 ## Overview and requirements
 *aSPIRE* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) and constructs a generation kinetic for each identified peptide.
 It does not do any heavy computing, thus can be run on a **Linux, Mac or Windows laptop** on a single CPU. However (**Note**, that software testing was done only on macOS/Linux).
@@ -13,6 +15,8 @@ The main steps of *aSPIRE* are:
 - removal of potential synthesis errors and contaminants
 - data normalisation and filtering of noisy data points
 - results visualisation (peptide generation kinetics, total ion chromatograms, peptide coverage maps, residue maps etc)
+
+
 
 ## Installation of dependencies
 The following instructions need to be **executed oncy once to set up *aSPIRE***. Once this is done, you can directly progress to the [execution](#Execution) for any further runs.
@@ -60,6 +64,8 @@ You should see information for all possible flags printed. In the config file, r
     automatedSkyline: yes
 
 to `yes` (see [config file](#config-file) section for detailed instructions).
+
+
 
 ## User input
 All input information should be provided in the `data/` folder. Please have a look at the files `config.yaml` and `sample_list.csv` in that folder.
@@ -117,8 +123,28 @@ A few general remarks:
 
 After filling in all information, save the sample list in .csv format. **Important!** In case you are creating/editing the `sample_list.csv` file in Microsoft Excel, make sure to save it as actual comma-separated file. *I.e.*, Save as --> Comma-separated Values (.csv) To check that the sample list is in the correct format, you can open it using a text editor and verify that the columns are separated by commas (and NOT semicolons).
 
+
+
 ## Execution
+Make sure you changed all input files and provided all necessary information. Open a terminal in the `aSPIRE` directory of your terminal. After entering `pwd` into the terminal, it should display `./aSPIRE` or `./aSPIRE-main`. Activate the conda environment (if not done so already) via: 
 
+    conda activate aspire
 
-## output
+Execute *aSPIRE* via:
+
+    snakemake --use-conda --cores all
+
+The progress of the execution should appear in your terminal window. Additionally, all statements are saved in a log file (`results/protein_name/log.txt`).
+In case you have installed an older version of Conda/Snakemake and encounter an error when executing the tool, try executing
+
+    snakemake --use-conda --cores all --conda-frontend conda
+
+After your jobs finished, enter
+
+    conda deactivate
+
+in order to terminate your Conda environment.
+All results are stored in the `results/protein_name/` folder.
+
+## Output
 
