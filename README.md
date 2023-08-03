@@ -135,7 +135,7 @@ After filling in all information, save the sample list in `.csv` format. **Impor
 
 
 ## Execution
-Make sure you changed all input files and provided all necessary information. Open a terminal in the `aSPIRE` directory of your terminal. After entering `pwd` into the terminal, it should display `./aSPIRE` or `./aSPIRE-main`. Activate the conda environment (if not done so already) via: 
+Make sure you changed all input files and provided all necessary information. Open a terminal in the `aSPIRE` directory of your terminal. After entering `pwd` into the terminal, it should display `./aSPIRE` or `./aSPIRE-v.1`. Activate the conda environment (if not done so already) via: 
 
     conda activate aspire
 
