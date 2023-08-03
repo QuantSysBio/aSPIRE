@@ -2,7 +2,7 @@
 aSPIRE is a tool for the estimation of peptide abundances using label-free quantification mass spectrometry
 <img src="aSPIRE_white.png" width="400">
 
-
+* [Overview and requirements](#Overview-and-requirements)
 
 ## Overview and requirements
 *aSPIRE* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) and constructs a generation kinetic for each identified peptide.
