@@ -185,9 +185,28 @@ The relevant output files for the user are explained below.
 | `protein_name_coverage.pdf` | Coverage profiles with the abundance of spliced/non-spliced peptides over time. |
 | `protein_name_residuemap.gif` | Visualisation of peptide origins and abundances. For each substrate residues, all peptides that contain this residue as potential origin are indicated. Bar height reflects relative abundance of a peptide. The height of each peptide stack is normalised to the coverage at this position. | 
 
+**Example of residue maps:**    
 <img src="results/CaM/plots/CaM_residuemap.gif" width="400"> <img src="results/H3/plots/H3_residuemap.gif" width="400">
 
 ### finalKinetics
+`protein_name_finalKinetics.csv` is the main output file of *aSPIRE*. Please find an explanation of the file below:    
 
-bla
-
+| column | explanation |
+| ----- | ----- |
+| `substrateID` | substrate ID specified by the user in `sample_list.csv`. |
+| `pepSeq` | Peptide sequence. Each peptide sequence is reported *n*-times, where *n* is the number of biological replicates. |
+| `biological_replicate` | Biological replicate to which the intensities correspond. |
+| `digestTimes` | Digestion time points, separated by *;*. |
+| `intensities` | MS1 intensities that correspond to the respective time points, separated by *;*. |
+| `substrateSeq` | Amino acid sequence of the substrate. |
+| `productType` | Peptide product type. `PCP`: non-spliced, `PSP`: spliced. |
+| `spliceType` | Peptide splice type. `cis`: forward *cis*-spliced, `revCis`: reverse *cis*-spliced, `trans`: *trans*-spliced. Multiple possible product types are separated by *;* (`PCP` denotes non-spliced peptides). |
+| `positions` | Coordinates of the substrate origin of each peptide. Multiple possible origins are separated by *;*. |
+| `noScans` | Number of PSMs in which the peptide was identified. |
+| `assignedScans` | PSMs in which the peptide was identified. Format: `raw-file-name_scan-number`. Multiple PSMs are separated by *;*. |
+| `spectralAngles` | Spectral angles corresponding to the PSMs (separated by *;*). |
+| `qValues` | q-values (FDRs) corresponding to the PSMs (separated by *;*). |
+| `ionScores` | Search engine scores corresponding to the PSMs (separated by *;*). |
+| `deltaRTs` | iRT errors corresponding to the PSMs (separated by *;*). |
+| `charges` | Charges corresponding to the PSMs (separated by *;*). |
+| `modifications` | Post-translational modifications (PTMs) corresponding to the PSMs (separated by *;*). |
