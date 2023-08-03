@@ -147,3 +147,47 @@ in order to terminate your Conda environment.
 All results are stored in the `results/protein_name/` folder.
 
 ## Output
+*aSPIRE* produces a variety of tabular and graphic output, *e.g.*, a table with full the annotation of each detected and quantified peptide, graphics of generation kinetics for each peptide, total ion chromatograms, coverage and residue maps, among others. For each specified protein name, the following files can be found in results:
+
+    .
+    ├── ASSIGNMENTS.RData
+    ├── ASSIGNMENTS.csv
+    ├── protein_name.fasta
+    ├── protein_name.ssl
+    ├── protein_name_YYMMDD.sky
+    ├── protein_name_TICs.tsv
+    ├── protein_name_finalKinetics.csv
+    ├── MS1_HPR.csv
+    ├── QUANTITIES_filtered.RData
+    ├── QUANTITIES_raw.RData
+    ├── log.txt
+    ├── notQuant.csv
+    ├── plots
+    │   ├── protein_name_TICs.done
+    │   ├── protein_name_TICs.pdf
+    │   ├── protein_name_coverage.pdf
+    │   ├── protein_name_coveragevalues.RData
+    │   ├── protein_name_finalKinetics.pdf
+    │   ├── protein_name_rawIntensities.pdf
+    │   ├── protein_name_residuemap.gif
+    │   └── protein_name_residuemap.pdf
+    └── skyline_log.txt
+
+The relevant output files for the user are explained below.
+
+| file name | explanation |
+| ----- | ----- |
+| `protein_name_finalKinetics.csv` | Table with full annotation of each identified and quantified peptide. Contaminants are labelled with *NA* in `substrateID` column. See [below](#finalKinetics) for detailed explanation of all columns. |
+| `protein_name_finalKinetics.pdf` | Graphics of the generation kinetic for each peptide. Biological replicates are plotted as separate lines. Bars indicate SD between technical replicates. Substrate sequence origin coordinates as well as peptide sequence and product type are indicated. |
+| `protein_name_YYMMDD.sky` | Skyline document. Can be opened in the Skyline GUI for direct access to chromatograms. |
+| `protein_name_TICs.tsv` | Total ion chromatograms (TICs) for each raw file. |
+| `protein_name_TICs.pdf` | Plots of TICs across 1) conditions or 2) replicates for QC. |
+| `protein_name_coverage.pdf` | Coverage profiles with the abundance of spliced/non-spliced peptides over time. |
+| `protein_name_residuemap.gif` | Visualisation of peptide origins and abundances. For each substrate residues, all peptides that contain this residue as potential origin are indicated. Bar height reflects relative abundance of a peptide. The height of each peptide stack is normalised to the coverage at this position. | 
+
+<img src="results/CaM/plots/CaM_residuemap.gif" width="400"> <img src="results/H3/plots/H3_residuemap.gif" width="400">
+
+### finalKinetics
+
+bla
+
