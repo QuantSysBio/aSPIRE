@@ -6,7 +6,7 @@ aSPIRE is a tool for the estimation of peptide abundances using label-free quant
 
 ## Overview and requirements
 *aSPIRE* processes peptide-spectrum matches (PSMs) that were assigned by *inSPIRE*, quantifies them using [Skyline](https://skyline.ms/project/home/software/Skyline/begin.view) and constructs a generation kinetic for each identified peptide.
-It does not do any heavy computing, thus can be run on a **Linux, Mac or Windows laptop** on a single CPU. However (**Note**, that software testing was done only on macOS/Linux).
+It can be run on a **Linux, Mac or Windows laptop or workstation**. However (**Note**, that software testing was done only on macOS/Linux).
 
 The main steps of *aSPIRE* are:
 - parsing of *inSPIRE* assignments (PSMs), peptide mapping and creation of input files for Skyline
