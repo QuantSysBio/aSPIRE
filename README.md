@@ -1,5 +1,5 @@
 # aSPIRE
-aSPIRE is a tool for the estimation of peptide abundances using label-free quantification mass spectrometry
+aSPIRE is a tool for the processing of peptide abundances using label-free quantification mass spectrometry
 <img src="aSPIRE_white.png" width="400">
 
 List of contents:    
@@ -23,7 +23,7 @@ The main steps of *aSPIRE* are:
 - aggregation of peptide abundances to generation kinetics
 - removal of potential synthesis errors and contaminants
 - data normalisation and filtering of noisy data points
-- results visualisation (peptide generation kinetics, total ion chromatograms, peptide coverage maps, residue maps etc)
+- results visualisation (peptide generation kinetics, total ion chromatograms, peptide coverage maps, residue maps etc.)
 
 
 
@@ -63,7 +63,7 @@ Install Skyline on your Windows machine following the [vendor's instructions](ht
 to `no` (see [config file](#config-file) section for detailed instructions). Make sure to follow the instructions in `Skyline_tutorial.pdf` during execution.
 
 #### Command line execution
-The command line options requires the installation of [Docker](https://www.docker.com/). Skyline is containerised in [this](https://hub.docker.com/r/chambm/pwiz-skyline-i-agree-to-the-vendor-licenses) Docker image. Pull the image and make sure that it works:
+The command line option requires the installation of [Docker](https://www.docker.com/). Skyline is containerised in [this](https://hub.docker.com/r/chambm/pwiz-skyline-i-agree-to-the-vendor-licenses) Docker image. Pull the image and make sure that it works:
 
     docker pull chambm/pwiz-skyline-i-agree-to-the-vendor-licenses
     docker run -it --rm chambm/pwiz-skyline-i-agree-to-the-vendor-licenses wine SkylineCmd --help
@@ -115,22 +115,22 @@ CaM	| CaM	| CaM.fasta	| 4	| b1	| CaM_psms.csv	| HRoetschke_291222_040123_Fu_CaM_
 CaM	| CaM	| CaM.fasta	| 4	| b2	| CaM_psms.csv	| HRoetschke_291222_040123_Fu_CaM_b2R1_4h.raw
 
 A few general remarks:
-- Please always provide a full kinetic including the zero hours / no proteasome control measurements.
-- You can put any number of proteins / experiments in the sample list. However, **only a single protein can be processed at once**. Specify the `protein_name you` would like to analyse in the config file (see above).
+- Please always provide a full kinetic including control measurements.
+- You can put any number of proteins / experiments in the sample list. However, **only a single protein can be processed at once**. Specify the `protein_name` you would like to analyse in the config file (see above).
 - Do not put any white spaces, umlauts or empty rows in the sample list. Also, every column has to be filled, even if there are duplicated entries (*e.g.*, substrateID).
 
 **Explanation of sample list columns:**
 | column | explanation |
 | ----- | ----- |
-| `protein_name` | The name of the protein/polypeptide to which the respective list entry corresponds. Choose a short and comprehensive name and avoid spaces or special characters. |
+| `protein_name` | The name of the protein/polypeptide to which the respective list entry corresponds. Choose a short and comprehensive name and avoid white spaces or special characters. |
 | `substrateID` | ID under which the given protein will appear in the final output. Can be identical to `protein_name` (recommended), but this does not have to be the case. |
 | `substrateSeq` | Save the substrate sequence in a single-entry `.fasta` file and deploy it in `data/sequences/`. Specify the name of the `.fasta` file in the `substrateSeq` column of the sample list. |
-| `digestTime` | Time point after which the digestion was stopped. **Please provide the time in hours!** For instance, if the digestion time is 15 min, enter 0.25. **Do not put any units in this column!** Zero-hours time points are treated as control measurements. Please enter *0* as time point for all control measurements. |
-| `biological_replicate` | Name of the biological (NOT technical!) replicate. In the final kinetics, the mean over all technical replicates is calculated, whereas biological replicates are displayed separately. Please have a look at the full sample list (`data/sample_list.csv`) for clarification. Alternatively, instead of the replicate name, you can also put a number in this column. For readability hower, the actual replicate ID is recommended. |
-| `final_assignments` | PSM list from *inSPIRE* (**NOT peptide list!**). They have to be copied into `data/inSPIRE` and re-named according to the example in the sample list. Specify the name of the *inSPIRE* output files in this column. |
-| `raw_file` | Provide the **full name** (including `.raw` suffix) of the `.raw` file for the respective sample. You do NOT have to copy the `.raw` files to your device. However, the device from which you are running *aSPIRE* must have access to this folder. |
+| `digestTime` | Time point. **Please provide the time in hours!** For instance, if the digestion time is 15 min, enter 0.25. **Do not put any units in this column!** Zero-hours time points are treated as control measurements. Please enter *0* as time point for all control measurements. |
+| `biological_replicate` | Name of the biological replicate. In the final kinetics, the mean over all technical replicates is calculated, whereas biological replicates are displayed separately. Please have a look at the full sample list (`data/sample_list.csv`) for clarification. |
+| `final_assignments` | PSM list from *inSPIRE* (**NOT peptide list!**). It has to be copied into `data/inSPIRE` and re-named according to the example in the sample list. Specify the name of the *inSPIRE* output files in this column. |
+| `raw_file` | Provide the **full name** (including `.raw` suffix) of the raw file for the respective sample. You do NOT have to copy the raw files to your device. However, the device from which you are running *aSPIRE* must have access to this folder. |
 
-After filling in all information, save the sample list in .csv format. **Important!** In case you are creating/editing the `sample_list.csv` file in Microsoft Excel, make sure to save it as actual comma-separated file. *I.e.*, Save as --> Comma-separated Values (.csv) To check that the sample list is in the correct format, you can open it using a text editor and verify that the columns are separated by commas (and NOT semicolons).
+After filling in all information, save the sample list in `.csv` format. **Important!** In case you are creating/editing the `sample_list.csv` file in Microsoft Excel, make sure to save it as actual comma-separated file. *I.e.*, *Save as --> Comma-separated Values (.csv)* To check that the sample list is in the correct format, you can open it using a text editor and verify that the columns are separated by commas (and NOT semicolons).
 
 
 
@@ -156,7 +156,7 @@ in order to terminate your Conda environment.
 All results are stored in the `results/protein_name/` folder.
 
 ## Output
-*aSPIRE* produces a variety of tabular and graphic output, *e.g.*, a table with full the annotation of each detected and quantified peptide, graphics of generation kinetics for each peptide, total ion chromatograms, coverage and residue maps, among others. For each specified protein name, the following files can be found in results:
+*aSPIRE* produces a variety of tabular and graphic output, *e.g.*, a table with full the annotation of each detected and quantified peptide, graphics of generation kinetics for each peptide, total ion chromatograms, coverage and residue maps, among others. For each specified protein name, the following files can be found in `results/`:
 
     .
     ├── ASSIGNMENTS.RData
@@ -191,7 +191,7 @@ The relevant output files for the user are explained below.
 | `protein_name_YYMMDD.sky` | Skyline document. Can be opened in the Skyline GUI for direct access to chromatograms. |
 | `protein_name_TICs.tsv` | Total ion chromatograms (TICs) for each raw file. |
 | `protein_name_TICs.pdf` | Plots of TICs across 1) conditions or 2) replicates for QC. |
-| `protein_name_coverage.pdf` | Coverage profiles with the abundance of spliced/non-spliced peptides over time. |
+| `protein_name_coverage.pdf` | Coverage profiles with the abundance of canonical and spliced peptides over time. |
 | `protein_name_residuemap.gif` | Visualisation of peptide origins and abundances. For each substrate residues, all peptides that contain this residue as potential origin are indicated. Bar height reflects relative abundance of a peptide. The height of each peptide stack is normalised to the coverage at this position. | 
 
 **Example of residue maps:**    
@@ -205,10 +205,10 @@ The relevant output files for the user are explained below.
 | `substrateID` | substrate ID specified by the user in `sample_list.csv`. |
 | `pepSeq` | Peptide sequence. Each peptide sequence is reported *n*-times, where *n* is the number of biological replicates. |
 | `biological_replicate` | Biological replicate to which the intensities correspond. |
-| `digestTimes` | Digestion time points, separated by *;*. |
+| `digestTimes` | Time points, separated by *;*. |
 | `intensities` | MS1 intensities that correspond to the respective time points, separated by *;*. |
 | `substrateSeq` | Amino acid sequence of the substrate. |
-| `productType` | Peptide product type. `PCP`: non-spliced, `PSP`: spliced. |
+| `productType` | Peptide product type. `PCP`: non-spliced (canonical), `PSP`: spliced. |
 | `spliceType` | Peptide splice type. `cis`: forward *cis*-spliced, `revCis`: reverse *cis*-spliced, `trans`: *trans*-spliced. Multiple possible product types are separated by *;* (`PCP` denotes non-spliced peptides). |
 | `positions` | Coordinates of the substrate origin of each peptide. Multiple possible origins are separated by *;*. |
 | `noScans` | Number of PSMs in which the peptide was identified. |
