@@ -2,6 +2,11 @@
 aSPIRE is a tool for the processing of peptide abundances using label-free quantification mass spectrometry
 <img src="aSPIRE_white.png" width="400">
 
+Please cite the following publication if you are using aSPIRE:
+
+> Soh, W.T., Roetschke, H.P., Cormican, J.A. et al. Protein degradation by human 20S proteasomes elucidates the interplay between peptide hydrolysis and splicing. Nat Commun 15, 1147 (2024). https://doi.org/10.1038/s41467-024-45339-3
+
+
 List of contents:    
 * [Overview and requirements](#Overview-and-requirements)
 * [Installation of dependencies](#Installation-of-dependencies)
