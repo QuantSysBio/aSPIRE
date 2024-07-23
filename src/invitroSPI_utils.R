@@ -951,6 +951,7 @@ resolve_multimapper = function(ProteasomeDB) {
   return(DB)
 }
 
+<<<<<<< HEAD
 
 # ----- resolve I/L redundancy -----
 resolveILRedundantCoordinates = function(ASSIGNMENTS) {
@@ -1010,3 +1011,5 @@ resolveILRedundantCoordinates = function(ASSIGNMENTS) {
 }
 
 
+=======
+>>>>>>> v.1/v.1

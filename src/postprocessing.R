@@ -114,9 +114,14 @@ plotKinetics(Qnorm, unlist(snakemake@output[["plot_kinetics"]]),
 # ----- generate output tables -----
 # annotation
 annotations = SKYLINE %>%
+<<<<<<< HEAD
   group_by(pepSeq,substrateSeq,existsIlRedundantEquivalent) %>%
   summarise(noScans = n(),
             pepSeqAssigned = paste(unique(pepSeqAssigned), collapse = ";"),
+=======
+  group_by(pepSeq,substrateSeq) %>%
+  summarise(noScans = n(),
+>>>>>>> v.1/v.1
             assignedScans = paste(ID,collapse = ";"),
             spectralAngles = paste(spectralAngle, collapse = ";"),
             qValues = paste(qValue,collapse = ";"),
@@ -140,8 +145,13 @@ kinetics = Qsum %>%
 
 # join both
 FINAL = full_join(annotations,kinetics) %>%
+<<<<<<< HEAD
   select(substrateID,pepSeq,existsIlRedundantEquivalent,biological_replicate,digestTimes,intensities,
          substrateSeq,productType,spliceType,positions,pepSeqAssigned,noScans,assignedScans,
+=======
+  select(substrateID,pepSeq,biological_replicate,digestTimes,intensities,
+         substrateSeq,productType,spliceType,positions,noScans,assignedScans,
+>>>>>>> v.1/v.1
          spectralAngles,qValues,ionScores,deltaRTs,charges,modifications)
 
 
