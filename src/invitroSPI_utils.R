@@ -951,3 +951,62 @@ resolve_multimapper = function(ProteasomeDB) {
   return(DB)
 }
 
+
+# ----- resolve I/L redundancy -----
+resolveILRedundantCoordinates = function(ASSIGNMENTS) {
+
+  substrateSeq = ASSIGNMENTS$substrateSeq %>% unique()
+
+  # check if I/L redundant sequence exists
+  ASSIGNMENTS = ASSIGNMENTS %>%
+    dplyr::mutate(pepSeq_IL = gsub("I","L",pepSeq)) %>%
+    dplyr::group_by(pepSeq_IL) %>%
+    dplyr::mutate(existsIlRedundantEquivalent = length(unique(pepSeq)) > 1,
+                  .after = pepSeq) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-pepSeq_IL)
+
+  # get sequence according to mapping coordinates
+  posTbl = ASSIGNMENTS %>%
+    dplyr::distinct(productType, pepSeq, spliceType, positions) %>%
+    tidyr::separate_rows(spliceType, positions, sep = ";")
+  pos = str_split_fixed(posTbl$positions, "_", Inf)
+  pos = apply(pos,2,as.numeric)
+
+  pepSeq_remapped = lapply(1:nrow(pos), function(i){
+    pep = substr(substrateSeq, pos[i,1], pos[i,2])
+    if (!is.na(pos[i,3])) {
+      sr2 = substr(substrateSeq, pos[i,3], pos[i,4])
+      pep = paste0(pep,sr2)
+    }
+    return(pep)
+  }) %>% 
+    unlist() %>%
+    as.character()
+
+  posTbl = posTbl %>%
+    dplyr::mutate(pepSeq_remapped = pepSeq_remapped)
+
+  xc = posTbl %>% dplyr::filter(pepSeq_remapped != pepSeq) %>% nrow()
+  print(paste0("resolved ambiguity of peptide sequences in ", xc, " cases"))
+
+  # join back with assignments
+  posTblSum = posTbl %>%
+    dplyr::rename(pepSeqAssigned = pepSeq,
+                  pepSeq = pepSeq_remapped) %>%
+    dplyr::group_by(productType, pepSeq) %>%
+    dplyr::summarise(positions = paste(unique(positions), collapse = ";"),
+                      spliceType = paste(na.omit(spliceType), collapse = ";"),
+                      pepSeqAssigned = paste(unique(pepSeqAssigned), collapse = ";")) %>%
+    dplyr::ungroup() %>%
+    tidyr::separate_rows(pepSeqAssigned, sep = ";")
+
+  ASSIGNMENTS = ASSIGNMENTS %>%
+    dplyr::rename(pepSeqAssigned = pepSeq) %>%
+    dplyr::select(-positions, -spliceType) %>%
+    dplyr::left_join(posTblSum, relationship = "many-to-many")
+
+  return(ASSIGNMENTS)
+}
+
+
