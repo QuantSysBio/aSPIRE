@@ -56,7 +56,11 @@ write.csv(SKYLINE[SKYLINE$modifiedSequence %in% not, ] %>% distinct(ID,.keep_all
 
 # ----- re-format quantification results -----
 QUANT = quant %>%
+<<<<<<< HEAD
+  dplyr::rename(ID = ProteinName,
+=======
   rename(ID = ProteinName,
+>>>>>>> v.1/v.1
          source = FileName,
          pepSeq = PeptideSequence,
          intensity_MS1 = TotalAreaMs1,
@@ -66,18 +70,31 @@ QUANT = quant %>%
          mz = ProductMz,
          RT = AverageMeasuredRetentionTime,
          PTMs = PeptideModifiedSequence) %>%
+<<<<<<< HEAD
+  dplyr::mutate(intensity_MS1 = as.numeric(intensity_MS1),
+         background_MS1 = as.numeric(background_MS1)) %>%
+  dplyr::select(ID,source,pepSeq,intensity_MS1,background_MS1,fragment,charge,mz,RT,PTMs) %>%
+  dplyr::mutate(source = gsub(".raw","",source)) %>%
+=======
   mutate(intensity_MS1 = as.numeric(intensity_MS1),
          background_MS1 = as.numeric(background_MS1)) %>%
   select(ID,source,pepSeq,intensity_MS1,background_MS1,fragment,charge,mz,RT,PTMs) %>%
   mutate(source = gsub(".raw","",source)) %>%
+>>>>>>> v.1/v.1
   unique()
 
 
 # replace NA intensities with 0
 QUANT = QUANT %>%
+<<<<<<< HEAD
+  dplyr::mutate(intensity_MS1 = ifelse(is.na(intensity_MS1),0,intensity_MS1),
+         background_MS1 = ifelse(is.na(background_MS1),0,background_MS1)) %>%
+  dplyr::mutate(intensity = intensity_MS1+background_MS1,
+=======
   mutate(intensity_MS1 = ifelse(is.na(intensity_MS1),0,intensity_MS1),
          background_MS1 = ifelse(is.na(background_MS1),0,background_MS1)) %>%
   mutate(intensity = intensity_MS1+background_MS1,
+>>>>>>> v.1/v.1
          frac_background = background_MS1/(intensity_MS1+1e-06),
          noise = frac_background*(1/(intensity+1e-06)))
 
@@ -87,6 +104,19 @@ JOINED = left_join(QUANT, quantAssign, by = c("ID")) %>%
   filter(!is.na(spectralAngle))
 
 JOINED = JOINED %>%
+<<<<<<< HEAD
+  dplyr::rename(source = source.x,
+         pepSeq = pepSeq.x,
+         charge = charge.x) %>%
+  dplyr::select(-source.y, -pepSeq.y, -charge.y) %>%
+  dplyr::select(-digestTime,-biological_replicate)
+
+# add info for each raw file using sample list
+X = sample_list %>%
+  dplyr::mutate(source = gsub(".raw","",raw_file)) %>%
+  dplyr::select(source, digestTime, biological_replicate) %>%
+  dplyr::right_join(JOINED)
+=======
   rename(source = source.x,
          pepSeq = pepSeq.x,
          charge = charge.x) %>%
@@ -98,16 +128,25 @@ X = sample_list %>%
   mutate(source = gsub(".raw","",raw_file)) %>%
   select(source, digestTime, biological_replicate) %>%
   right_join(JOINED)
+>>>>>>> v.1/v.1
 
 # ----- sum intensities for each peptides
 # all peptides have one precursor peak
 # summed over all charges
 Y = X %>%
+<<<<<<< HEAD
+  dplyr::filter(fragment == "precursor") %>%
+  dplyr::group_by(pepSeq,source) %>%
+  dplyr::mutate(intensity = sum(as.numeric(intensity))) %>%
+  dplyr::select(source,substrateID,digestTime,biological_replicate,pepSeq,pepSeqAssigned, intensity,frac_background,noise,substrateSeq,ID) %>%
+  dplyr::distinct(source,substrateID,digestTime,biological_replicate,pepSeq,substrateSeq,ID, .keep_all = T)
+=======
   filter(fragment == "precursor") %>%
   group_by(pepSeq,source) %>%
   mutate(intensity = sum(as.numeric(intensity))) %>%
   select(source,substrateID,digestTime,biological_replicate,pepSeq,intensity,frac_background,noise,substrateSeq,ID) %>%
   distinct(source,substrateID,digestTime,biological_replicate,pepSeq,substrateSeq,ID, .keep_all = T)
+>>>>>>> v.1/v.1
 
 # Y %>%
 #   group_by(pepSeq) %>%
@@ -116,6 +155,18 @@ Y = X %>%
 
 # summarise IDs
 Z = Y %>%
+<<<<<<< HEAD
+  dplyr::group_by(source,substrateID,digestTime,biological_replicate,pepSeq,intensity,frac_background,noise,substrateSeq) %>%
+  dplyr::summarise(assignments = paste(ID,collapse = ";"))
+
+# ----- aggregate kinetics for replicates -----
+QUANTITIES = Z %>%
+  dplyr::group_by(pepSeq,digestTime,biological_replicate) %>%
+  dplyr::mutate(mean_techRep = if (all(intensity == 0) & all(digestTime != 0)) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T)) %>%
+  dplyr::ungroup() %>%
+  dplyr::group_by(pepSeq,digestTime) %>%
+  dplyr::mutate(mean_bioRep = if (all(intensity == 0) & all(digestTime != 0)) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T))
+=======
   group_by(source,substrateID,digestTime,biological_replicate,pepSeq,intensity,frac_background,noise,substrateSeq) %>%
   summarise(assignments = paste(ID,collapse = ";"))
 
@@ -126,6 +177,7 @@ QUANTITIES = Z %>%
   ungroup() %>%
   group_by(pepSeq,digestTime) %>%
   mutate(mean_bioRep = if (all(intensity == 0) & all(digestTime != 0)) 0 else mean(intensity[intensity!=0 | digestTime == 0], na.rm=T))
+>>>>>>> v.1/v.1
 
 
 ### OUTPUT ###

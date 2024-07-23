@@ -90,6 +90,14 @@ k = which(str_detect(ASSIGNMENTS$positions, "^[:digit:]+_[:digit:]+_[:digit:]+_[
 ASSIGNMENTS$productType[k] = "PSP"
 
 
+<<<<<<< HEAD
+# ----- 4) resolve I/L redundancy -----
+ASSIGNMENTS = resolveILRedundantCoordinates(ASSIGNMENTS)
+
+
+# ----- 5) create .ssl table -----
+# add charge and modifications
+=======
 # ----- 4) create .ssl table -----
 # add charge and modifications
 # SKYLINE = AllFeatures %>%
@@ -101,6 +109,7 @@ ASSIGNMENTS$productType[k] = "PSP"
 #   right_join(ASSIGNMENTS) %>%
 #   unique()
 
+>>>>>>> v.1/v.1
 SKYLINE = ASSIGNMENTS %>%
   mutate(ID = paste0(source,"_",scanNum))
 
@@ -110,7 +119,11 @@ input = data.frame(file = paste0(SKYLINE$source,".raw"),
                    charge = SKYLINE$charge,
                    sequence = SKYLINE$modifiedSequence)
 
+<<<<<<< HEAD
+# ----- 6) create .fasta file -----
+=======
 # ----- 5) create .fasta file -----
+>>>>>>> v.1/v.1
 # pass only unique peptides
 P = SKYLINE %>%
   distinct(pepSeq, .keep_all = T)
