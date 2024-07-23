@@ -90,26 +90,12 @@ k = which(str_detect(ASSIGNMENTS$positions, "^[:digit:]+_[:digit:]+_[:digit:]+_[
 ASSIGNMENTS$productType[k] = "PSP"
 
 
-<<<<<<< HEAD
 # ----- 4) resolve I/L redundancy -----
 ASSIGNMENTS = resolveILRedundantCoordinates(ASSIGNMENTS)
 
 
 # ----- 5) create .ssl table -----
 # add charge and modifications
-=======
-# ----- 4) create .ssl table -----
-# add charge and modifications
-# SKYLINE = AllFeatures %>%
-#   mutate(source = str_extract_all(AllFeatures$PSMId, "^[:graph:]+(?=_[:digit:]{3,}_[:alnum:]{5,}$)", simplify = T),
-#          scanNum = str_extract_all(AllFeatures$PSMId, "[:digit:]{3,}(?=_[:alnum:]{5,}$)", simplify = T) %>% as.numeric()) %>%
-#   filter(PSMId %in% paste0(ASSIGNMENTS$source,"_",ASSIGNMENTS$scanNum,"_",ASSIGNMENTS$modifiedSequence)) %>%
-#   mutate(ID = paste0(source,"_",scanNum)) %>%
-#   select(source,scanNum,ID,charge,deltaRT) %>%
-#   right_join(ASSIGNMENTS) %>%
-#   unique()
-
->>>>>>> v.1/v.1
 SKYLINE = ASSIGNMENTS %>%
   mutate(ID = paste0(source,"_",scanNum))
 
@@ -119,11 +105,7 @@ input = data.frame(file = paste0(SKYLINE$source,".raw"),
                    charge = SKYLINE$charge,
                    sequence = SKYLINE$modifiedSequence)
 
-<<<<<<< HEAD
 # ----- 6) create .fasta file -----
-=======
-# ----- 5) create .fasta file -----
->>>>>>> v.1/v.1
 # pass only unique peptides
 P = SKYLINE %>%
   distinct(pepSeq, .keep_all = T)
@@ -132,7 +114,7 @@ protList = lapply(prots, function(x){x})
 nm = paste0(P$source,"_",P$scanNum)
 names(protList) = nm
 
-# ----- 6) inform about retention time -----
+# ----- 7) inform about retention time -----
 print("retention time deviation:")
 summary(SKYLINE$deltaRT/60) %>%
   print()
