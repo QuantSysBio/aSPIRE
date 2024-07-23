@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<srm_settings format_version="21.2" software_version="Skyline (64-bit) 21.2.0.568 (17c47d8e1)">
+  <settings_summary name="Default">
+    <peptide_settings>
+      <enzyme name="ReallyNoCleave" cut="M" no_cut="ACDEFGHIKLMNPQRSTVWY" sense="C" />
+      <digest_settings max_missed_cleavages="0" />
+      <peptide_prediction use_measured_rts="true" measured_rt_window="2" />
+      <peptide_filter start="0" min_length="5" max_length="40" auto_select="true">
+        <peptide_exclusions />
+      </peptide_filter>
+      <peptide_libraries pick="library" />
+      <peptide_modifications max_variable_mods="2" max_neutral_losses="2">
+        <static_modifications>
+          <static_modification name="Deamidated (NQ)" aminoacid="N, Q" variable="true" formula="O - HN" unimod_id="7" short_name="Dea" />
+          <static_modification name="Oxidation (M)" aminoacid="M" variable="true" formula="O" unimod_id="35" short_name="Oxi">
+            <potential_loss formula="H4COS" massdiff_monoisotopic="63.998285" massdiff_average="64.10701" />
+          </static_modification>
+          <static_modification name="Acetyl (N-term)" terminus="N" variable="true" formula="C2H2O" unimod_id="1" short_name="1Ac" />
+          <static_modification name="Carbamidomethyl (C)" aminoacid="C" formula="H3C2NO" unimod_id="4" short_name="CAM" />
+        </static_modifications>
+        <heavy_modifications />
+      </peptide_modifications>
+      <quantification weighting="none" fit="none" normalization="none" ms_level="1" />
+    </peptide_settings>
+    <transition_settings>
+      <transition_prediction precursor_mass_type="Monoisotopic" fragment_mass_type="Monoisotopic" optimize_by="None" />
+      <transition_filter precursor_charges="1,2,3,4,5,6" product_charges="1,2,3" precursor_adducts="[M+H]" product_adducts="[M+]" fragment_types="y,p" small_molecule_fragment_types="f,p" fragment_range_first="m/z &gt; precursor" fragment_range_last="3 ions" precursor_mz_window="0" auto_select="true">
+        <measured_ion name="N-terminal to Proline" cut="P" sense="N" min_length="3" />
+      </transition_filter>
+      <transition_libraries ion_match_tolerance="0.5" min_ion_count="0" ion_count="3" pick_from="all" />
+      <transition_integration />
+      <transition_instrument min_mz="50" max_mz="1500" mz_match_tolerance="0.055" />
+      <transition_full_scan acquisition_method="DDA" product_mass_analyzer="orbitrap" product_res="60000" product_res_mz="400" precursor_isotopes="Count" precursor_isotope_filter="3" precursor_mass_analyzer="orbitrap" precursor_res="70000" precursor_res_mz="400" selective_extraction="true" retention_time_filter_type="ms2_ids" retention_time_filter_length="0.5">
+        <isotope_enrichments name="Default">
+          <atom_percent_enrichment symbol="H'">0.98</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="C'">0.995</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="C&quot;">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="N'">0.995</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="O&quot;">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="O'">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="Cl'">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="Br'">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="P'">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="S&quot;">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="S'">0.99</atom_percent_enrichment>
+          <atom_percent_enrichment symbol="H&quot;">0.99</atom_percent_enrichment>
+        </isotope_enrichments>
+      </transition_full_scan>
+    </transition_settings>
+    <data_settings document_guid="3e890e56-7e45-4533-9e07-6fc617070147" audit_logging="true">
+      <views>
+        <view name="MS1_HPR" rowsource="pwiz.Skyline.Model.Databinding.Entities.Transition" sublist="Results!*" uimode="proteomic">
+          <column name="Precursor.Peptide.Protein.Name" />
+          <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.Replicate.Name" />
+          <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.FileName" />
+          <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.AcquiredTime" />
+          <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.InstrumentSerialNumber" />
+          <column name="Precursor.Peptide.Sequence" />
+          <column name="Precursor.Peptide.ModifiedSequence" />
+          <column name="Precursor.Peptide.MissedCleavages" />
+          <column name="Precursor.Peptide.SequenceLength" />
+          <column name="Precursor.Peptide.AverageMeasuredRetentionTime" />
+          <column name="Results!*.Value.PrecursorResult.PeptideResult.Quantification.NormalizedArea" />
+          <column name="Results!*.Value.PrecursorResult.PeptideResult.ResultFile.TicArea" />
+          <column name="ResultSummary" />
+          <column name="ProductCharge" />
+          <column name="ProductNeutralMass" />
+          <column name="ProductMz" />
+          <column name="FragmentIon" />
+          <column name="Results!*.Value.Area" />
+          <column name="Results!*.Value.Background" />
+          <column name="Precursor.ResultSummary" />
+          <column name="Precursor.TransitionCount" />
+          <column name="Results!*.Value.PrecursorResult.BestRetentionTime" />
+          <column name="Precursor.Mz" />
+          <column name="Precursor.Charge" />
+          <column name="Results!*.Value.PrecursorResult.TotalAreaMs1" />
+          <column name="Results!*.Value.PrecursorResult.TotalBackgroundMs1" />
+          <column name="Results!*.Value.PrecursorResult.TotalArea" />
+          <column name="Results!*.Value.PrecursorResult.TotalBackground" />
+        </view>
+      </views>
+    </data_settings>
+  </settings_summary>
+</srm_settings>

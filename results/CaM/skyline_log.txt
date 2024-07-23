@@ -1,0 +1,116 @@
+[2023/07/10 06:53:32]	Success! Imported Reports from _Skyline-report.skyr
+[2023/07/10 06:53:32]	Opening file...
+[2023/07/10 06:53:33]	File _Skyline-template.sky opened.
+[2023/07/10 06:53:33]	Document unchanged
+[2023/07/10 06:53:33]	Changing full-scan extraction to +/- 0.5 minutes from MS/MS IDs.
+[2023/07/10 06:53:33]	Creating spectral library from files:
+[2023/07/10 06:53:33]	CaM.ssl
+[2023/07/10 06:53:35]	Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R1_1h.raw.
+[2023/07/10 06:53:37]	4% - Loading HRoetschke_291222_040123_Fu_CaM_b1R1_24h.raw.
+[2023/07/10 06:53:40]	2% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R1_24h.raw.
+[2023/07/10 06:53:42]	5% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R1_2h.raw.
+[2023/07/10 06:53:45]	9%
+[2023/07/10 06:53:48]	13% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R1_4h.raw.
+[2023/07/10 06:53:50]	17%
+[2023/07/10 06:53:53]	19% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R2_1h.raw.
+[2023/07/10 06:53:55]	23% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R2_24h.raw.
+[2023/07/10 06:53:57]	27%
+[2023/07/10 06:53:59]	30% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R2_2h.raw.
+[2023/07/10 06:54:02]	34%
+[2023/07/10 06:54:05]	37% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b1R2_4h.raw.
+[2023/07/10 06:54:07]	41%
+[2023/07/10 06:54:09]	46% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R1_1h.raw.
+[2023/07/10 06:54:11]	48% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R1_24h.raw.
+[2023/07/10 06:54:13]	50%
+[2023/07/10 06:54:15]	52%
+[2023/07/10 06:54:18]	54% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R1_2h.raw.
+[2023/07/10 06:54:20]	58%
+[2023/07/10 06:54:23]	60% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R1_4h.raw.
+[2023/07/10 06:54:25]	64%
+[2023/07/10 06:54:27]	70% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R2_1h.raw.
+[2023/07/10 06:54:30]	74% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R2_24h.raw.
+[2023/07/10 06:54:33]	78% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R2_2h.raw.
+[2023/07/10 06:54:35]	82% - Reading spectra from HRoetschke_291222_040123_Fu_CaM_b2R2_4h.raw.
+[2023/07/10 06:54:37]	88%
+[2023/07/10 06:54:38]	100%
+[2023/07/10 06:54:40]	5% - Filtering redundant library 'Z:\data\CaM_20230710.redundant.blib'.
+[2023/07/10 06:54:42]	13%
+[2023/07/10 06:54:44]	21%
+[2023/07/10 06:54:47]	33%
+[2023/07/10 06:54:50]	45%
+[2023/07/10 06:54:53]	56%
+[2023/07/10 06:54:56]	65%
+[2023/07/10 06:54:58]	72%
+[2023/07/10 06:55:00]	80%
+[2023/07/10 06:55:03]	89%
+[2023/07/10 06:55:05]	96%
+[2023/07/10 06:55:06]	100%
+[2023/07/10 06:55:07]	Loading library
+[2023/07/10 06:55:07]	Building binary cache for CaM_20230710.blib library
+[2023/07/10 06:55:07]	Loading CaM_20230710.blib library,
+[2023/07/10 06:55:08]	Adding 0 modifications.
+[2023/07/10 06:55:08]	Importing FASTA file CaM.fasta...
+[2023/07/10 06:55:10]	44% - Adding protein HRoetschke_291222_040123_Fu_CaM_b1R1_2h_11891
+166 proteins and 221 peptides added
+[2023/07/10 06:55:11]	100% - Adding protein HRoetschke_291222_040123_Fu_CaM_b2R1_4h_9910
+370 proteins and 483 peptides added
+[2023/07/10 06:55:11]	
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	1. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R1_1h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	2. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R1_24h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	3. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R1_2h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	4. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R1_4h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	5. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R2_1h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	6. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R2_24h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	7. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R2_2h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	8. Z:\data\HRoetschke_291222_040123_Fu_CaM_b1R2_4h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	9. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R1_1h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	10. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R1_24h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	11. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R1_2h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	12. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R1_4h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	13. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R2_1h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	14. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R2_24h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	15. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R2_2h.raw
+[2023/07/10 06:55:11]	Adding results...
+[2023/07/10 06:55:11]	16. Z:\data\HRoetschke_291222_040123_Fu_CaM_b2R2_4h.raw
+[2023/07/10 06:55:11]	
+[2023/07/10 06:55:11]	Aligning retention times
+[2023/07/10 06:55:11]	100%
+[2023/07/10 06:55:12]	Loading _Skyline-template.skyd cache
+[2023/07/10 06:55:14]	41% - Updating peak statistics
+[2023/07/10 06:55:15]	100%
+[2023/07/10 06:55:15]	Refining document...
+[2023/07/10 06:55:15]	Document unchanged
+[2023/07/10 06:55:15]	Saving file...
+[2023/07/10 06:55:16]	File CaM_20230710.sky saved.
+[2023/07/10 06:55:16]	Exporting report MS1_HPR...
+[2023/07/10 06:55:18]	Writing row 3,253/51,481
+[2023/07/10 06:55:20]	20% - Writing row 8,130/51,481
+[2023/07/10 06:55:22]	29% - Writing row 13,007/51,481
+[2023/07/10 06:55:25]	39% - Writing row 18,426/51,481
+[2023/07/10 06:55:27]	49% - Writing row 23,845/51,481
+[2023/07/10 06:55:29]	58% - Writing row 28,722/51,481
+[2023/07/10 06:55:31]	67% - Writing row 33,600/51,481
+[2023/07/10 06:55:33]	76% - Writing row 38,477/51,481
+[2023/07/10 06:55:35]	84% - Writing row 42,812/51,481
+[2023/07/10 06:55:37]	94% - Writing row 48,231/51,481
+[2023/07/10 06:55:39]	100% - Writing row 50,941/51,481
+[2023/07/10 06:55:39]	Report MS1_HPR exported successfully to Z:\data\MS1_HPR.csv.
+[2023/07/10 06:55:39]	Exporting chromatograms file Z:\data\CaM_TICs.tsv...
+[2023/07/10 06:55:41]	Exporting Chromatograms for HRoetschke_291222_040123_Fu_CaM_b2R2_2h
+[2023/07/10 06:55:41]	100%
+[2023/07/10 06:55:41]	Chromatograms file Z:\data\CaM_TICs.tsv exported successfully.
