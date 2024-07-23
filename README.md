@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-# aSPIre
+# aSPIRE
 abundance of spliced peptides identified using relative quantification  
-<img src="aSPIre.png" width="600">
+<img src="aSPIRE_white.png" width="600">
 
 
 ## overview and requirements
@@ -317,6 +316,7 @@ The relevant output files for the user are explained below.
 | ----- | ----- |
 | `substrateID` | substrate ID specified by the user in `sample_list.csv`. |
 | `pepSeq` | Peptide sequence. Each peptide sequence is reported *n*-times, where *n* is the number of biological replicates. |
+| `existsIlRedundantEquivalent` | Indicates whether an I/L-redundant equivalent of the sequence was identified as well. |
 | `biological_replicate` | Biological replicate to which the intensities correspond. |
 | `digestTimes` | Time points, separated by *;*. |
 | `intensities` | MS1 intensities that correspond to the respective time points, separated by *;*. |
@@ -324,6 +324,7 @@ The relevant output files for the user are explained below.
 | `productType` | Peptide product type. `PCP`: non-spliced (canonical), `PSP`: spliced. |
 | `spliceType` | Peptide splice type. `cis`: forward *cis*-spliced, `revCis`: reverse *cis*-spliced, `trans`: *trans*-spliced. Multiple possible product types are separated by *;* (`PCP` denotes non-spliced peptides). |
 | `positions` | Coordinates of the substrate origin of each peptide. Multiple possible origins are separated by *;*. |
+| `pepSeqAssigned`| I/L variant of the peptide sequence that was originally assigned during sequence identification. |
 | `noScans` | Number of PSMs in which the peptide was identified. |
 | `assignedScans` | PSMs in which the peptide was identified. Format: `raw-file-name_scan-number`. Multiple PSMs are separated by *;*. |
 | `spectralAngles` | Spectral angles corresponding to the PSMs (separated by *;*). |
@@ -332,4 +333,4 @@ The relevant output files for the user are explained below.
 | `deltaRTs` | iRT errors corresponding to the PSMs (separated by *;*). |
 | `charges` | Charges corresponding to the PSMs (separated by *;*). |
 | `modifications` | Post-translational modifications (PTMs) corresponding to the PSMs (separated by *;*). |
->>>>>>> v.1/v.1
+
