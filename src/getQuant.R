@@ -46,7 +46,7 @@ paste0(NquantPep," out of ",NuniquePep," unique peptides could be quantified") %
   print()
 
 
-not = unique(SKYLINE$modifiedSequence[!SKYLINE$pepSeq %in% c(quant$Peptide.Sequence %>% unique())])
+not = unique(SKYLINE$modifiedSequence[!SKYLINE$pepSeq %in% c(quant$PeptideSequence %>% unique())])
 write.csv(SKYLINE[SKYLINE$modifiedSequence %in% not, ] %>% distinct(ID,.keep_all = T),
           paste0("results/",protein_name,"/notQuant.csv"),row.names = F)
 
