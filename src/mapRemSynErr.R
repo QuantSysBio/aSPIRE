@@ -50,7 +50,7 @@ paste0("peptides that were identified at t=0: ", length(errors)) %>%
   print()
 
 # PSP synthesis errors based on sequence
-if (length(errors) > 0) {
+if (length(errors) > 0 & any(QUANTITIES$productType == "PSP")) {
   
   ErrPeps = c()
   print("removing PSP synthesis errors based on MS2 identification...")
